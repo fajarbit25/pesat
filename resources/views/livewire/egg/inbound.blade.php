@@ -25,7 +25,9 @@
                     <i class="material-icons opacity-10">person</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Sisa Utang <span class="fw-bold">{{$custname}}</span> @if($custname) <a class="text-primary fw-bold mx-1" wire:click="modalPelanggan">Ganti</a> @endif</p> 
+                    {{-- <p class="text-sm mb-0 text-capitalize">Sisa Utang <span class="fw-bold">{{$custname}}</span> @if($custname) <a class="text-primary fw-bold mx-1" wire:click="modalPelanggan">Ganti</a> @endif</p> --}}
+                    <p class="text-sm mb-0 text-capitalize">Sisa Utang <span class="fw-bold">{{$custname}}</span></p> 
+
                     @if($custname)
                         <h4 class="mb-0">Rp.{{number_format($custHutang)}},-</h4>
                     @else

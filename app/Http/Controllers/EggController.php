@@ -16,11 +16,12 @@ class EggController extends Controller
         return view('egg.index', $data);
     }
 
-    public function inbound(): View
+    public function inbound($id): View
     {
         $data = [
             'title'     => 'Transaksi',
             'page'      => 'Pembelian',
+            'userid'    => $id,
         ];
         return view('egg.inbound', $data);
     }

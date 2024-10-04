@@ -43,7 +43,7 @@ Route::controller(MedicineController::class)->group(function() {
 
 Route::controller(EggController::class)->group(function () {
     Route::get('egg', 'index')->middleware('auth')->name('egg');
-    Route::get('egg/inbound', 'inbound')->middleware('auth')->name('egg.inbound');
+    Route::get('egg/{id}/inbound', 'inbound')->middleware('auth')->name('egg.inbound');
     Route::get('egg/outbound', 'outbound')->middleware('auth')->name('egg.outbound');
     Route::get('egg/{id}/mutasi', 'mutasi')->middleware('auth')->name('egg.mutasi');
     Route::get('egg/report', 'report')->middleware('auth')->name('egg.report');

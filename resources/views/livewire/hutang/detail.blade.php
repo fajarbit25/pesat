@@ -1,5 +1,16 @@
 <div class="col-sm-12">
     <div class="row">
+      
+      @session('success')
+      <div class="col-sm-12">
+          <div class="alert alert-success alert-dismissible text-white" role="alert">
+              <span class="text-sm"> {{session('success')}} </span>
+              <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      </div>
+      @endsession
 
         <div class="col-12">
           <div class="card my-4">
@@ -12,6 +23,8 @@
                         <span class="fw-bold mx-3 text-light">Alamat : </span> <span class="fw-bold text-light">{{$address}}</span><br/>
                     </div>
                     <div class="col-sm-6 text-end">
+                      <a href="{{url('egg/'.$userid.'/inbound')}}" class="btn btn-success btn-sm mx-1">Telur Masuk</a>
+                      <a href="" class="btn btn-info btn-sm mx-1">Ambil Barang</a>
                     </div>
                 </div>
               </div>

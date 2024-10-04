@@ -33,13 +33,14 @@ class Inbound extends Component
     public $cust;
     public $tipetrx; //Egg, Medic, Pakan
 
-    public function mount($bound, $tipe)
+    public function mount($bound, $tipe, $userid)
     {
+        
         $this->bound = $bound;
         $this->tipetrx = $tipe;
-        if($this->bound == 'penjualan'){
-            $this->idPelanggan = 1;
-        }
+        $this->idPelanggan = $userid;
+
+        $this->addPelanggan();
     }
 
     public function render()
@@ -145,10 +146,10 @@ class Inbound extends Component
         return $data;    
     }
 
-    public function addPelanggan($id)
+    public function addPelanggan()
     {
-        $this->reset('custname', 'custHutang', 'idPelanggan');
-        $this->idPelanggan = $id;
+        //$this->reset('custname', 'custHutang', 'idPelanggan');
+        //$this->idPelanggan = $id;
 
         $user = User::findOrFail($this->idPelanggan);
         $hutang = HutangPlasma::where('user_id', $user->id)->first();
@@ -288,14 +289,14 @@ class Inbound extends Component
 
                 }
 
-                return redirect('egg/report')->with('success', 'Data berhasil disimpan.');
+                return redirect('hutang/'.$this->idPelanggan.'/report')->with('success', 'Data berhasil disimpan.');
 
             } catch (Exception $e) {
                 $this->dispatch('alert', [
                     'title'     => 'Terjadi kesalahan',
                     'message'   => 'Periksa mutasi stok anda',
                     'icon'      => 'error',
-                    'error'     => $e,
+                    'error'     => $e->getMessage(),
                 ]);
             }
 

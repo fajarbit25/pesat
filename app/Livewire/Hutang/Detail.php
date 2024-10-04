@@ -11,6 +11,7 @@ class Detail extends Component
 {
     public $userid;
     private $items;
+    private $produk;
     public $dataTrx;
 
     public function mount($userid)
@@ -23,8 +24,10 @@ class Detail extends Component
         $user = User::findOrFail($this->userid);
 
         $this->getItems();
+        $this->getProduk();
         return view('livewire.hutang.detail', [
             'items'    => $this->items,
+            'produk'   => $this->produk,
             'name'     => $user->name,
             'address'  => $user->address,
         ]);
@@ -32,8 +35,26 @@ class Detail extends Component
 
     public function getItems()
     {
-        $this->items = EggTrx::where('costumer_id', $this->userid)
-                        ->orderBy('created_at', 'DESC')->paginate(3);
+        $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
+                        ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
+                        ->where('costumer_id', $this->userid)
+                        ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
+                        ->whereMonth('egg_trxes.created_at', date('m'))
+                        ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total')
+                        ->orderBy('egg_trxes.created_at', 'DESC')->get();
+    }
+
+    public function getProduk()
+    {
+        $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
+                        ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+                        ->where('costumer_id', $this->userid)
+                        ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
+                        ->whereMonth('egg_trxes.created_at', date('m'))
+                        ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total')
+                        ->orderBy('egg_trxes.created_at', 'DESC')->get();
     }
 
     public function modalDetailEgg($id)

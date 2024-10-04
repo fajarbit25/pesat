@@ -7,15 +7,17 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi <span class="fw-bold">{{$name.' - '.$address}}</span> </h6>
+                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi </h6>
+                        <span class="fw-bold mx-3 text-light">Nama : </span> <span class="fw-bold text-light">{{$name}}</span><br/>
+                        <span class="fw-bold mx-3 text-light">Alamat : </span> <span class="fw-bold text-light">{{$address}}</span><br/>
                     </div>
                     <div class="col-sm-6 text-end">
                     </div>
                 </div>
               </div>
             </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
+            <div class="card-body pb-2">
+              {{-- <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
@@ -63,6 +65,86 @@
                     </tr>
                   </tbody>
                 </table>
+              </div> --}}
+              <div class="row">
+                <div class="col-sm-6">
+                  <span class="fw-bold">Telur  Masuk</span>
+                  <table class="table table-bordered" style="font-size:12px;">
+                    <thead>
+                      <tr class="bg-light">
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if($items)
+                      @foreach($items as $item)
+                      <tr>
+                        <td> {{substr($item->tanggal, 0, 10)}} </td>
+                        <td> {{$item->name}} </td>
+                        <td> {{number_format($item->qty)}} </td>
+                        <td> {{number_format($item->price)}} </td>
+                        <td> {{number_format($item->total)}} </td>
+                      </tr>
+                      @endforeach
+                      <tr>
+                        <td colspan="5"></td>
+                      </tr>
+                      @endif
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-sm-6">
+                  <span class="fw-bold">Pengambilan Barang</span>
+                  <table class="table table-bordered" style="font-size:12px;">
+                    <thead>
+                      <tr class="bg-light">
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if($produk)
+                      @foreach($produk as $item)
+                      <tr>
+                        <td> {{substr($item->tanggal, 0, 10)}} </td>
+                        <td> {{$item->name}} </td>
+                        <td> {{number_format($item->qty)}} </td>
+                        <td> {{number_format($item->price)}} </td>
+                        <td> {{number_format($item->total)}} </td>
+                      </tr>
+                      @endforeach
+                      <tr>
+                        <td colspan="5"></td>
+                      </tr>
+                      @endif
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-sm-12">
+                  <table class="table table-bordered" style="font-size:12px;">
+                    <tr>
+                      <th>Telur Masuk</th>
+                      <td> {{number_format($items->sum('total'))}} </td>
+                    </tr>
+                    <tr>
+                      <th>Pengambilan Barang</th>
+                      <td>{{number_format($produk->sum('total'))}}</td>
+                    </tr>
+                    <tr class="bg-light">
+                      <th>Grand Total</th>
+                      <th>{{number_format($produk->sum('total')-$items->sum('total'))}}</th>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

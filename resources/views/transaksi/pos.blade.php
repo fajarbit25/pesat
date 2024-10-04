@@ -1,4 +1,6 @@
 @extends('template.main')
 @section('content')
-    @livewire('transaksi.pos')
+    @livewire('transaksi.pos', [
+        'userid'    => $userid,
+    ])
 @endsection

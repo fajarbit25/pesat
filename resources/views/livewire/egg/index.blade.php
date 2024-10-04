@@ -12,7 +12,6 @@
                     <div class="col-sm-6 text-end">
                         <button class="btn btn-info btn-sm mx-1" wire:click="modalCreate"><i class="material-icons opacity-10">add</i> Tambah</button>
                         <a href="{{route('egg.report')}}" class="btn btn-secondary btn-sm mx-1"><i class="material-icons opacity-10">table_view</i> Laporan</a>
-                        <a href="{{route('egg.inbound')}}" class="btn btn-warning btn-sm mx-1"><i class="material-icons opacity-10">add_shopping_cart</i> Terima</a>
                         <a href="{{route('egg.outbound')}}" class="btn btn-success btn-sm mx-1"><i class="material-icons opacity-10">shopping_cart_checkout</i> Jual</a>
                     </div>
                 </div>

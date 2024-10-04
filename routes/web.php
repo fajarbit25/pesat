@@ -59,7 +59,7 @@ Route::controller(HutangController::class)->group(function() {
 
 Route::controller(TransaksiController::class)->group(function() {
     Route::get('transaksi', 'penjualan')->middleware('auth')->name('transaksi');
-    Route::get('transaksi/pos', 'pos')->middleware('auth')->name('transaksi.pos');
+    Route::get('transaksi/{id}/pos', 'pos')->middleware('auth')->name('transaksi.pos');
     Route::get('inbound', 'inbound')->middleware('auth')->name('inbound');
     Route::get('inbound/transaksi', 'transaksi')->middleware('auth')->name('inbound.transaksi');
     Route::get('invoice/{id}/print', 'invoicePrint')->name('print.invoice');

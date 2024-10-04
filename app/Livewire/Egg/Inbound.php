@@ -289,7 +289,7 @@ class Inbound extends Component
 
                 }
 
-                return redirect('hutang/'.$this->idPelanggan.'/report')->with('success', 'Data berhasil disimpan.');
+                return redirect('hutang/'.$this->idPelanggan.'/detail')->with('success', 'Data berhasil disimpan.');
 
             } catch (Exception $e) {
                 $this->dispatch('alert', [

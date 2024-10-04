@@ -29,6 +29,12 @@ class Pos extends Component
     public $dataCust;
     public $custHutang;
 
+    public function mount($userid)
+    {
+        $this->idPelanggan = $userid;
+        $this->addPelanggan();
+    }
+
     public function render()
     {
         $this->getCostumer();
@@ -55,10 +61,10 @@ class Pos extends Component
         $this->dispatch('modalPelanggan');
     }
 
-    public function addPelanggan($id)
+    public function addPelanggan()
     {
-        $this->reset('custname', 'custHutang', 'idPelanggan');
-        $this->idPelanggan = $id;
+        // $this->reset('custname', 'custHutang', 'idPelanggan');
+        // $this->idPelanggan = $id;
 
         $user = User::findOrFail($this->idPelanggan);
         $hutang = HutangPlasma::where('user_id', $user->id)->first();
@@ -218,7 +224,7 @@ class Pos extends Component
                 ]);
                 $this->custHutang = $hutangAkhir;
 
-                return redirect()->route('transaksi')->with('success','Transaksi tersimpan kedatabase!');
+                return redirect(url('hutang/'.$this->idPelanggan.'/detail'))->with('success','Transaksi tersimpan kedatabase!');
 
             } catch (Exception $e) {
                 $this->dispatch('alert', [

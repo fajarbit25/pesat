@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-sm-6 text-end">
                       <a href="{{url('egg/'.$userid.'/inbound')}}" class="btn btn-success btn-sm mx-1">Telur Masuk</a>
-                      <a href="" class="btn btn-info btn-sm mx-1">Ambil Barang</a>
+                      <a href="{{url('transaksi/'.$userid.'/pos')}}" class="btn btn-info btn-sm mx-1">Ambil Barang</a>
                     </div>
                 </div>
               </div>

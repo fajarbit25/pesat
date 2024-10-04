@@ -39,11 +39,12 @@ class TransaksiController extends Controller
         return view('transaksi.penjualan', $data);
     }
 
-    public function pos(): View
+    public function pos($id): View
     {
         $data = [
             'title'     => 'Barang Keluar',
-            'page'      => 'Point Of Sale'
+            'page'      => 'Point Of Sale',
+            'userid'    => $id,
         ];
         return view('transaksi.pos', $data);
     }

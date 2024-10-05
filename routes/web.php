@@ -44,13 +44,15 @@ Route::controller(MedicineController::class)->group(function() {
 Route::controller(EggController::class)->group(function () {
     Route::get('egg', 'index')->middleware('auth')->name('egg');
     Route::get('egg/{id}/inbound', 'inbound')->middleware('auth')->name('egg.inbound');
-    Route::get('egg/outbound', 'outbound')->middleware('auth')->name('egg.outbound');
+    Route::get('egg/{id}/outbound', 'outbound')->middleware('auth')->name('egg.outbound');
     Route::get('egg/{id}/mutasi', 'mutasi')->middleware('auth')->name('egg.mutasi');
     Route::get('egg/report', 'report')->middleware('auth')->name('egg.report');
 });
 
 Route::controller(HutangController::class)->group(function() {
     Route::get('hutang', 'index')->middleware('auth')->name('hutang');
+    Route::get('buyer/', 'buyer')->middleware('auth')->name('hutang.buyer');
+    Route::get('buyer/{id}/detail', 'buyerDetail')->middleware('auth')->name('hutang.buyerDetail');
     Route::get('hutang/{id}/detail', 'detail')->middleware('auth')->name('hutang.detail');
     Route::get('debt', 'debt')->middleware('auth')->name('debt');
     Route::get('debt/{id}/detail', 'debtdetail')->middleware('auth')->name('debtdetail');

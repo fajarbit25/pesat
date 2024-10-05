@@ -21,7 +21,7 @@ class Data extends Component
     public $level;
     public $phone;
     public $email;
-    public $password;
+    public $password = 'admin1234';
     public $edit;
     public $delete;
     public $isActive;
@@ -97,7 +97,7 @@ class Data extends Component
                     'address'   => $this->address,  
                 ]);
 
-            if ($this->level == '3') {
+            if ($this->level >= '3') {
                 $this->addHutang($user->id);
             }
             

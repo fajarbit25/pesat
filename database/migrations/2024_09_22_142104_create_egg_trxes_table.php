@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('trxtipe', ['penjualan', 'pembelian']);
             $table->integer('totalprice');
             $table->integer('disc');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

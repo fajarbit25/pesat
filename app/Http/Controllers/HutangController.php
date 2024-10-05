@@ -53,4 +53,23 @@ class HutangController extends Controller
         ];
         return view('hutang.debtdetail', $data);
     }
+
+    public function buyer(): View
+    {
+        $data = [
+            'title'     => 'Hutang buyer',
+            'page'      => 'Detail Catatan Hutang Kepada Buyer',
+        ];
+        return view('hutang.buyer', $data);
+    }
+
+    public function buyerDetail($id): View
+    {
+        $data = [
+            'title'     => 'Hutang buyer',
+            'page'      => 'Detail Catatan Hutang Kepada Buyer',
+            'userid'    => $id,
+        ];
+        return view('hutang.buyer-detail', $data);
+    }
 }

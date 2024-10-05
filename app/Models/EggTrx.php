@@ -17,5 +17,6 @@ class EggTrx extends Model
         'trxtipe',
         'totalprice',
         'disc',
+        'keterangan',
     ];
 }

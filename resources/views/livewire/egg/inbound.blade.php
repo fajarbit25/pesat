@@ -17,7 +17,6 @@
                 </div>
             </div>
         </div>
-        @if($bound == 'pembelian')
         <div class="col-sm-4">
             <div class="card  mb-2">
                 <div class="card-header p-3 pt-2">
@@ -42,7 +41,6 @@
                 </div>
             </div>
         </div>
-        @endif
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -255,15 +253,14 @@
                           <input type="number" class="form-control" wire:model.live="disc">
                         </div>
                     </div>
-                    @if($dataCust)
+                    @if($bound == 'penjualan')
                     <div class="col-sm-12">
-                        <label for="paymentStatus">Pelanggan <span class="text-danger">*</span></label>
+                        <label for="paymentStatus">Pembayaran <span class="text-danger">*</span></label>
                         <div class="input-group input-group-outline mb-3">
-                          <select class="form-control" wire:model="idPelanggan">
-                            <option value="">--Pilih Pembeli--</option>
-                            @foreach($dataCust as $cs)
-                            <option value="{{$cs->id}}"> {{$cs->name.' - '.$cs->address}} </option>
-                            @endforeach
+                          <select class="form-control" wire:model="paymentStatus">
+                            <option value="">--Pilih Pembayaran--</option>
+                            <option value="pending">Pending</option>
+                            <option value="lunas">Lunas</option>
                           </select>
                         </div>
                     </div>

@@ -76,12 +76,15 @@
               <span class="nav-link-text ms-1">Barang Masuk</span>
           </a>
         </li>
+
+        <hr class="light horizontal my-0">
+
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('debt*') ? 'active' : '' }}" href="{{route('debt')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">payment</i>
               </div>
-              <span class="nav-link-text ms-1">Catatan Hutang</span>
+              <span class="nav-link-text ms-1">Hutang Supplier</span>
           </a>
         </li>
         <li class="nav-item">
@@ -89,9 +92,17 @@
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="material-icons opacity-10">payment</i>
                 </div>
-                <span class="nav-link-text ms-1">Catatan Piutang</span>
+                <span class="nav-link-text ms-1">Piutang Costumer</span>
             </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {{ request()->is('buyer*') ? 'active' : '' }}" href="{{route('hutang.buyer')}}">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">shopping_cart_checkout</i>
+              </div>
+              <span class="nav-link-text ms-1">Penjualan Telur</span>
+          </a>
+      </li>
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -100,6 +111,9 @@
               <span class="nav-link-text ms-1">Upah Buruh</span>
           </a>
         </li>
+
+        <hr class="light horizontal my-0">
+
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

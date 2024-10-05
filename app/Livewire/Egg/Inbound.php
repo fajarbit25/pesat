@@ -272,7 +272,7 @@ class Inbound extends Component
                     $updateStock->update(['stock' => $sa]);
                 }
 
-                if ($this->bound == 'pembelian') {
+                if ($this->paymentStatus == 'pending') {
 
                     $hutang = HutangPlasma::where('user_id', $this->idPelanggan)->first();
                     $hutangAwal = $hutang->hutang;
@@ -289,7 +289,11 @@ class Inbound extends Component
 
                 }
 
-                return redirect('hutang/'.$this->idPelanggan.'/detail')->with('success', 'Data berhasil disimpan.');
+                if ($this->bound == 'pembelian') {
+                    return redirect('hutang/'.$this->idPelanggan.'/detail')->with('success', 'Data berhasil disimpan.');
+                } else {
+                    return redirect('buyer/'.$this->idPelanggan.'/detail')->with('success', 'Data berhasil disimpan.');
+                }
 
             } catch (Exception $e) {
                 $this->dispatch('alert', [

@@ -38,7 +38,7 @@
           
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                    @error('idPelanggan')<span class="fw-bold text-danger">Masukan data penlanggan.</span>@enderror
+                    @error('idPelanggan')<span class="fw-bold text-danger">Masukan data pelanggan.</span>@enderror
                 </div>
             </div>
         </div>

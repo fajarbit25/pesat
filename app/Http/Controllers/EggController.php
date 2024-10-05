@@ -26,11 +26,12 @@ class EggController extends Controller
         return view('egg.inbound', $data);
     }
 
-    public function outbound(): View
+    public function outbound($id): View
     {
         $data = [
             'title'     => 'Transaksi',
             'page'      => 'Penjualan',
+            'userid'    => $id,
         ];
         return view('egg.outbound', $data);
     }

@@ -9,7 +9,6 @@
                             <span class="fw-bold text-primary">Laporan Barang Keluar</span>
                         </div>
                         <div class="col-sm-6 text-end">
-                            <a href="{{route('transaksi.pos')}}" class="btn btn-primary btn-sm">Form</a>
                         </div>
                     </div>
                 </div>

@@ -36,6 +36,8 @@ class Data extends Component
     public $dataPack;
     public $dataSupplier;
 
+    public $key;
+
     public function mount()
     {
         $this->getUtility();
@@ -121,14 +123,26 @@ class Data extends Component
 
     public function getMedicine()
     {
-        $data = ModelMedicine::join('medic_cats', 'medic_cats.id', '=', 'medicines.cat')
+        if ($this->key == "") {
+            $this->items = ModelMedicine::join('medic_cats', 'medic_cats.id', '=', 'medicines.cat')
                         ->join('medic_packagings', 'medic_packagings.id', '=', 'medicines.packaging')
                         ->join('medic_units', 'medic_units.id', '=', 'medicines.unit')
                         ->join('users', 'users.id', '=', 'medicines.supplier')
                         ->select('medicines.id', 'medicines.name', 'category', 'medic_units.unit', 'sellingprice as price', 'stock', 'medicines.code',
                         'medic_packagings.packaging', 'jenis', 'users.name as suppliername')
                         ->paginate(10);
-        $this->items = $data;
+        } else {
+            $this->items = ModelMedicine::join('medic_cats', 'medic_cats.id', '=', 'medicines.cat')
+                        ->join('medic_packagings', 'medic_packagings.id', '=', 'medicines.packaging')
+                        ->join('medic_units', 'medic_units.id', '=', 'medicines.unit')
+                        ->join('users', 'users.id', '=', 'medicines.supplier')
+                        ->where('medicines.name', 'like', '%'.$this->key.'%')
+                        ->orWhere('users.name', 'like', '%'.$this->key.'%')
+                        ->select('medicines.id', 'medicines.name', 'category', 'medic_units.unit', 'sellingprice as price', 'stock', 'medicines.code',
+                        'medic_packagings.packaging', 'jenis', 'users.name as suppliername')
+                        ->paginate(10);
+        }
+
     }
 
     public function getSupplier()

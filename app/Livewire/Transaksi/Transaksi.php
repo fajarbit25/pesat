@@ -64,7 +64,7 @@ class Transaksi extends Component
     public function getProducts()
     {
         if ($this->key == '') {
-            $this->products = Medicine::all();
+            $this->products = Medicine::where('code', '!=', 'PELUNASAN')->get();
         } else {
             $this->products = Medicine::where('code', 'like', '%'.$this->key.'%')
                         ->orWhere('name', 'like', '%'.$this->key.'%')

@@ -30,7 +30,7 @@ class BuyerDetail extends Component
                             ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                             ->where('costumer_id', $this->userid)->where('egg_trxes.tipetrx', 'egg')->where('egg_trxes.trxtipe', 'penjualan')
                             ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.qty', 'egg_trans_temps.price', 'egg_trans_temps.total',
-                            'egg_trxes.created_at as tanggal', 'idtansaksi', 'payment_status')
+                            'egg_trxes.created_at as tanggal', 'idtansaksi', 'payment_status', 'keterangan')
                             ->get();
     }
 

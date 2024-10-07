@@ -271,6 +271,15 @@
                           <input type="number" class="form-control" wire:model.live="pay">
                         </div>
                     </div>
+                    @if($bound == 'penjualan')
+                    <div class="col-sm-12">
+                        <label for="keterangan">Catatan</label>
+                        <div class="input-group input-group-outline mb-3">
+                          <textarea rows="2" class="form-control" wire:model="keterangan"></textarea>
+                        </div>
+                    </div>
+                    @endif
+
                     @error('idPelanggan')<span class="fw-bold text-danger">Masukan data penlanggan.</span>@enderror
                     @error('pay')<span class="fw-bold text-danger">Masukan jumlah pembayaran.</span>@enderror
                     @error('cust')<span class="fw-bold text-danger">Masukan jumlah pembayaran.</span>@enderror

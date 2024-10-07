@@ -81,7 +81,7 @@
 
     </div>
   
-    <!-- Modal -->
+    {{-- <!-- Modal -->
     <div class="modal fade" id="modalCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalCreateLabel" aria-hidden="true" wire:ignore.self>
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -136,7 +136,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Modal -->
     <div class="modal fade" id="modalBayar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalBayarLabel" aria-hidden="true" wire:ignore.self>

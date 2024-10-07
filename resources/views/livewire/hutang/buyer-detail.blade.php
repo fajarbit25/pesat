@@ -36,6 +36,7 @@
                                             <th>Harga</th>
                                             <th>Jumlah</th>
                                             <th>Status</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +56,7 @@
                                                     <span class="fw-bold text-danger">Pending</span>
                                                 @endif
                                             </td>
+                                            <td> {{$item->keterangan}} </td>
                                         </tr>
                                         @endforeach
                                         @endif

@@ -32,6 +32,7 @@ class Inbound extends Component
     public $dataCust;
     public $cust;
     public $tipetrx; //Egg, Medic, Pakan
+    public $keterangan;
 
     public function mount($bound, $tipe, $userid)
     {
@@ -230,6 +231,7 @@ class Inbound extends Component
             'trxtipe'           => $this->bound,
             'totalprice'        => $this->sumTx,
             'disc'              => $this->disc,
+            'keterangan'        => $this->keterangan,
         ];
 
         if ($this->pay >= $totalTrx) {

@@ -253,6 +253,12 @@
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}"> Upah Buruh </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}"> Personal </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('store*') ? 'active' : '' }}" href="{{route('user.store')}}"> Toko </a>
+        <form method="POST" action="/logout">
+          @csrf
+        <div class="mx-3">
+          <button type="submit" class="btn bg-gradient-primary mt-4 w-100" type="button">Logout</button>
+        </div>
+        </form>
 
         <!-- Sidenav Type -->
         <div class="mt-3">

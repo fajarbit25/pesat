@@ -87,16 +87,16 @@ class Index extends Component
                     'tipetrx'       => 'pakan',
                     'payment_status'=> 'lunas',
                     'trxtipe'       => 'penjualan',
-                    'totalprice'    => $pays,
+                    'totalprice'    => $this->pay,
                     'disc'          => 0,
                 ]);
 
                 EggTransTemp::create([
                     'trx_id'        => $kode,
                     'egg_id'        => $item->id,
-                    'qty'           => $pays,
+                    'qty'           => $this->pay,
                     'price'         => 1,
-                    'total'         => $pays,
+                    'total'         => $this->pay,
                     'status'        => 'inactive'
                 ]);
 

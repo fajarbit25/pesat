@@ -18,7 +18,7 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi </h6>
+                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi {{$month}}</h6>
                         <span class="fw-bold mx-3 text-light">Nama : </span> <span class="fw-bold text-light">{{$name}}</span><br/>
                         <span class="fw-bold mx-3 text-light">Alamat : </span> <span class="fw-bold text-light">{{$address}}</span><br/>
                     </div>
@@ -30,55 +30,13 @@
               </div>
             </div>
             <div class="card-body pb-2">
-              {{-- <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">kode Transaksi</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Transaksi</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Transaksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @if($items)
-                    @foreach ($items as $item)
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"> {{$loop->iteration}} </h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs text-secondary font-weight-bold mb-0"> {{substr($item->created_at, 0, 10)}} </p>
-                      </td>
-                      <td>
-                        @if($item->tipetrx == 'egg')
-                          <a href="javascript:void(0);" wire:click="modalDetailEgg({{$item->idtransaksi}})" class="fw-bold text-primary"> {{$item->idtransaksi}} </a>
-                        @else
-                          <a href="javascript:void(0);" wire:click="modalDetail({{$item->idtransaksi}})" class="fw-bold text-primary"> {{$item->idtransaksi}} </a>
-                        @endif
-                      </td>
-                      <td>
-                        <p class="text-xs text-secondary font-weight-bold mb-0">
-                          @if($item->tipetrx == 'egg') Telur @else Produk @endif  @if($item->trxtipe == 'pembelian') Inbound @else Outbound @endif 
-                        </p>
-                      </td>
-                      <td class="align-middle text-sm">
-                        <p class="text-xs fw-bold @if($item->trxtipe == 'penjualan') text-success @endif mb-0"> @if($item->trxtipe == 'pembelian') - @else + @endif {{number_format($item->totalprice)}} </p>
-                      </td>
-                    </tr>
-                    @endforeach
-                    @endif
-                    <tr>
-                        <td colspan="5">{{$items->links()}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> --}}
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="input-group input-group-outline">
+                      <input type="month" class="form-control mx-2"  wire:model.live="month">
+                    </div>
+                </div>
+            </div>
               <div class="row">
                 <div class="col-sm-6">
                   <span class="fw-bold">Telur  Masuk</span>

@@ -24,6 +24,13 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-outline">
+                                  <input type="month" class="form-control mx-2"  wire:model.live="month">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-8">
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="font-size: 12px;">

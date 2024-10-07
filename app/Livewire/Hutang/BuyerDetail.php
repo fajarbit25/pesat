@@ -11,6 +11,7 @@ class BuyerDetail extends Component
     public $userid;
     public $items;
     public $users;
+    public $month;
 
     public function mount($userid)
     {

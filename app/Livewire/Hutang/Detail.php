@@ -13,10 +13,12 @@ class Detail extends Component
     private $items;
     private $produk;
     public $dataTrx;
+    public $month;
 
     public function mount($userid)
     {
         $this->userid = $userid;
+        $this->month = date('m');
     }
 
     public function render()
@@ -35,22 +37,28 @@ class Detail extends Component
 
     public function getItems()
     {
+        $startDate = $this->month . '-01'; // Start of the month
+        $endDate = date('Y-m-t', strtotime($startDate)); // End of the month
+
         $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
-                        ->whereMonth('egg_trxes.created_at', date('m'))
+                        ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
                         ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->get();
     }
 
     public function getProduk()
     {
+        $startDate = $this->month . '-01'; // Start of the month
+        $endDate = date('Y-m-t', strtotime($startDate)); // End of the month
+
         $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
-                        ->whereMonth('egg_trxes.created_at', date('m'))
+                        ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
                         ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->get();
     }

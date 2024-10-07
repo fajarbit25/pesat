@@ -239,6 +239,21 @@
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a>
+        <div class="mt-3">
+          <h6 class="mb-0">Menu</h6>
+        </div>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('dashboard*') ? 'active' : '' }} " href="{{route('dashboard')}}"> Dashboard </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('medicine*') ? 'active' : '' }} " href="{{route('medicine')}}"> Master Produk </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('egg*') ? 'active' : '' }} " href="{{route('egg')}}"> Stock Telur </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}"> Barang Keluar </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('inbound*') ? 'active' : '' }}" href="{{route('inbound')}}"> Barang Masuk </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('debt*') ? 'active' : '' }}" href="{{route('debt')}}"> Hutang Supplier </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('hutang*') ? 'active' : '' }}" href="{{route('hutang')}}"> Piutang Costumer </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('buyer*') ? 'active' : '' }}" href="{{route('hutang.buyer')}}"> Penjualan Telur </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}"> Upah Buruh </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}"> Personal </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('store*') ? 'active' : '' }}" href="{{route('user.store')}}"> Toko </a>
+
         <!-- Sidenav Type -->
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
@@ -265,20 +280,7 @@
           </div>
         </div>
         <hr class="horizontal dark my-sm-4">
-        <div class="mt-3">
-          <h6 class="mb-0">Menu</h6>
-        </div>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('dashboard*') ? 'active' : '' }} " href="{{route('dashboard')}}"> Dashboard </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('medicine*') ? 'active' : '' }} " href="{{route('medicine')}}"> Master Produk </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('egg*') ? 'active' : '' }} " href="{{route('egg')}}"> Stock Telur </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}"> Barang Keluar </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('inbound*') ? 'active' : '' }}" href="{{route('inbound')}}"> Barang Masuk </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('debt*') ? 'active' : '' }}" href="{{route('debt')}}"> Hutang Supplier </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('hutang*') ? 'active' : '' }}" href="{{route('hutang')}}"> Piutang Costumer </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('buyer*') ? 'active' : '' }}" href="{{route('hutang.buyer')}}"> Penjualan Telur </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}"> Upah Buruh </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}"> Personal </a>
-        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('store*') ? 'active' : '' }}" href="{{route('user.store')}}"> Toko </a>
+
       </div>
     </div>
   </div>

@@ -18,9 +18,10 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi {{$month}}</h6>
+                        <h6 class="text-white text-capitalize ps-3">Detail Transaksi</h6>
                         <span class="fw-bold mx-3 text-light">Nama : </span> <span class="fw-bold text-light">{{$name}}</span><br/>
                         <span class="fw-bold mx-3 text-light">Alamat : </span> <span class="fw-bold text-light">{{$address}}</span><br/>
+                        <span class="fw-bold mx-3 text-light">Periode : </span> <span class="fw-bold text-light">{{$month}}</span><br/>
                     </div>
                     <div class="col-sm-6 text-end">
                       <a href="{{url('egg/'.$userid.'/inbound')}}" class="btn btn-success btn-sm mx-1">Telur Masuk</a>
@@ -84,11 +85,11 @@
                     <tbody>
                       @if($produk)
                       @foreach($produk as $item)
-                      <tr>
+                      <tr @if($item->name == "PELUNASAN") class="bg-light" @endif>
                         <td> {{substr($item->tanggal, 0, 10)}} </td>
                         <td> {{$item->name}} </td>
-                        <td> {{number_format($item->qty)}} </td>
-                        <td> {{number_format($item->price)}} </td>
+                        <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->qty)}} @endif </td>
+                        <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->price)}} @endif </td>
                         <td> {{number_format($item->total)}} </td>
                       </tr>
                       @endforeach

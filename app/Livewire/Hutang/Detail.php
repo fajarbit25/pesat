@@ -18,7 +18,7 @@ class Detail extends Component
     public function mount($userid)
     {
         $this->userid = $userid;
-        $this->month = date('m');
+        $this->month = date('Y M');
     }
 
     public function render()

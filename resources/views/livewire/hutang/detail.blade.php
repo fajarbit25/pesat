@@ -113,7 +113,7 @@
                     </tr>
                     <tr class="bg-light">
                       <th>Grand Total</th>
-                      <th>{{number_format($produk->sum('total')-$items->sum('total'))}}</th>
+                      <th>{{number_format($items->sum('total')-$produk->sum('total'))}}</th>
                     </tr>
                   </table>
                 </div>

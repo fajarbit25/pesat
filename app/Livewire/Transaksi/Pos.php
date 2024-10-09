@@ -109,8 +109,8 @@ class Pos extends Component
             EggTransTemp::create([
                 'egg_id'        => $id,
                 'qty'           => 1,
-                'price'         => $product->price,
-                'total'         => $product->price,
+                'price'         => $product->sellingprice,
+                'total'         => $product->sellingprice,
                 'status'        => 'active',
             ]);
             $this->dispatch('closeModal');

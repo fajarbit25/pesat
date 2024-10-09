@@ -57,7 +57,7 @@
                         <p class="text-xs text-secondary font-weight-bold mb-0"> {{$item->address}} </p>
                       </td>
                       <td class="align-middle text-sm">
-                        <p class="text-xs @if($item->hutang < 0) text-success @endif fw-bold mb-0"> <span class="fw-bold">{{number_format($item->hutang)}}</span> </p>
+                        <p class="text-xs @if($item->hutang < 0) text-success @endif fw-bold mb-0"> <span class="fw-bold">{{number_format(abs($item->hutang))}}</span> </p>
                       </td>
                       <td class="align-middle text-sm">
                         <p class="text-xs fw-bold mb-0">

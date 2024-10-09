@@ -26,8 +26,8 @@
             <i class="material-icons opacity-10">payments</i>
           </div>
           <div class="text-end pt-1">
-            <p class="text-sm mb-0 text-capitalize">Piutang Mines</p>
-            <h4 class="mb-0"> {{number_format($piutangMines)}} </h4>
+            <p class="text-sm mb-0 text-capitalize">Hutang Ke Costumer</p>
+            <h4 class="mb-0"> {{number_format(abs($piutangMines))}} </h4>
           </div>
         </div>
   

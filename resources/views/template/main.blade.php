@@ -61,6 +61,14 @@
             </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-white {{ request()->is('report-egg*') ? 'active' : '' }} " href="{{route('egg.laporanTelurMasuk')}}">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+               <i class="material-icons opacity-10">egg</i>
+              </div>
+              <span class="nav-link-text ms-1">Laporan Telur Masuk</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">add_shopping_cart</i>
@@ -75,7 +83,7 @@
               </div>
               <span class="nav-link-text ms-1">Barang Masuk</span>
           </a>
-        </li>
+        </li>   
 
         <hr class="light horizontal my-0">
 

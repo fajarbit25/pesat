@@ -47,6 +47,7 @@ Route::controller(EggController::class)->group(function () {
     Route::get('egg/{id}/outbound', 'outbound')->middleware('auth')->name('egg.outbound');
     Route::get('egg/{id}/mutasi', 'mutasi')->middleware('auth')->name('egg.mutasi');
     Route::get('egg/report', 'report')->middleware('auth')->name('egg.report');
+    Route::get('report-egg/in', 'laporanTelurMasuk')->middleware('auth')->name('egg.laporanTelurMasuk');
 });
 
 Route::controller(HutangController::class)->group(function() {

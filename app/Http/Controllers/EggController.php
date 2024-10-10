@@ -54,4 +54,13 @@ class EggController extends Controller
         ];
         return view('egg.report', $data);
     }
+
+    public function laporanTelurMasuk():View
+    {
+        $data = [
+            'title'     => 'Laporan',
+            'page'      => 'Laporan Telur Masuk',
+        ];
+        return view('egg.telur-masuk', $data);
+    }
 }

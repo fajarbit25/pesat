@@ -165,7 +165,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <label for="stock">Stok Awal <span class="text-danger">*</span> <span class="fw-bold">{{number_format($stock)}}</span> </label>
+                <label for="stock">Stok Awal <span class="text-danger">*</span> @if($stock) <span class="fw-bold">{{number_format($stock) ?? 0}}</span> @endif </label>
                 <div class="input-group input-group-outline mb-3">
                   <input type="text" class="form-control" wire:model.live="stock">
                 </div>

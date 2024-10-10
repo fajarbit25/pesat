@@ -46,7 +46,7 @@ class Detail extends Component
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
                         ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total')->get();
+                        'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function getProduk()
@@ -60,7 +60,7 @@ class Detail extends Component
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
                         ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
                         ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total')->get();
+                        'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function modalDetailEgg($id)

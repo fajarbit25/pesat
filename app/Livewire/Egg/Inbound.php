@@ -33,6 +33,7 @@ class Inbound extends Component
     public $cust;
     public $tipetrx; //Egg, Medic, Pakan
     public $keterangan;
+    public $tanggal;
 
     public function mount($bound, $tipe, $userid)
     {
@@ -40,6 +41,7 @@ class Inbound extends Component
         $this->bound = $bound;
         $this->tipetrx = $tipe;
         $this->idPelanggan = $userid;
+        $this->tanggal = date('Y-m-d');
 
         $this->addPelanggan();
     }
@@ -232,6 +234,7 @@ class Inbound extends Component
             'totalprice'        => $this->sumTx,
             'disc'              => $this->disc,
             'keterangan'        => $this->keterangan,
+            'created_at'        => $this->tanggal.' '.date('H:i:s'),
         ];
 
         if ($this->pay >= $totalTrx) {
@@ -245,6 +248,7 @@ class Inbound extends Component
                 EggTransTemp::where('status', 'active')->update([
                     'trx_id'    => $idtransaksi,
                     'status'    => 'inactive',
+                    'created_at'        => $this->tanggal.' '.date('H:i:s'),
                 ]);
 
                 //simpan data ke mutasi
@@ -265,7 +269,7 @@ class Inbound extends Component
                         'qty'           => $tx->qty,
                         'stockawal'     => $eggs->stock,
                         'atockakhir'    => $sa,
-                        'date'          => date('Y-m-d'),
+                        'date'          => $this->tanggal,
                         'user_id'       => Auth::user()->id,
                     ]);
 

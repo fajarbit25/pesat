@@ -14,6 +14,7 @@ class EggTransTemp extends Model
         'qty',
         'price',
         'total',
-        'status'
+        'status',
+        'created_at',
     ];
 }

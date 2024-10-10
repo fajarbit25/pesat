@@ -21,6 +21,7 @@
                                     <th>Tanggal</th>
                                     <th>Total Stok Masuk</th>
                                     <th>Total Stok Keluar</th>
+                                    <th>Revisi Stock</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -29,6 +30,7 @@
                                     <td>{{ $label }}</td>
                                     <td>{{ number_format($data1[$index]) }}</td>
                                     <td>{{ number_format($data2[$index]) }}</td>
+                                    <td> {{number_format($restock[$index])}} </td>
                                 </tr>
                                 @endforeach
                             </tbody>

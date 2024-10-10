@@ -29,9 +29,12 @@ class Pos extends Component
     public $dataCust;
     public $custHutang;
 
+    public $tanggal;
+
     public function mount($userid)
     {
         $this->idPelanggan = $userid;
+        $this->tanggal = date('Y-m-d');
         $this->addPelanggan();
     }
 
@@ -177,7 +180,8 @@ class Pos extends Component
                     'payment_status'    => 'lunas',
                     'trxtipe'           => 'penjualan',
                     'totalprice'        => $this->sumTx,
-                    'disc'              => $this->disc
+                    'disc'              => $this->disc,
+                    'created_at'        => $this->tanggal.' '.date('H:i:s'),
                 ]);
 
                 //update status temp
@@ -185,6 +189,7 @@ class Pos extends Component
                     ->update([
                         'trx_id'        => $trx->idtransaksi,
                         'status'        => 'inactive',
+                        'created_at'        => $this->tanggal.' '.date('H:i:s'),
                     ]);
 
                 

@@ -41,14 +41,22 @@ class EggChart extends Component
             ->groupBy(DB::raw("strftime('%Y-%m-%d', date)"))
             ->pluck('total_stock', 'date');
 
+        $restock = EggMutasi::select(DB::raw("SUM(qty) as total_stock"), DB::raw("strftime('%Y-%m-%d', date) as date"))
+                ->where('egg_id', $this->eggid)
+                ->where('supplier_id', '0')
+                ->whereMonth('date', date('m'))
+                ->groupBy(DB::raw("strftime('%Y-%m-%d', date)"))
+                ->pluck('total_stock', 'date');
+
         // Mengonversi tanggal menjadi format yang lebih ramah
-        $labels = $users1->keys()->merge($users2->keys())->unique()->sort()->map(function ($date) {
+        $labels = $users1->keys()->merge($users2->keys(), $restock->keys())->unique()->sort()->map(function ($date) {
         return date('d F', strtotime($date)); // Mengambil format tanggal dan nama bulan
         });
 
         // Menyiapkan data untuk dua garis
         $data1 = $users1->values();
         $data2 = $users2->values();
+        $data3 = $restock->values();
 
         // Memastikan jumlah data sama dengan labels
         $data1 = $labels->map(function ($label) use ($users1) {
@@ -59,10 +67,17 @@ class EggChart extends Component
         return $users2->get(date('Y-m-d', strtotime($label)), 0);
         });
 
+        $data3 = $labels->map(function ($label) use ($restock) {
+            return $restock->get(date('Y-m-d', strtotime($label)), 0);
+        });
+
+
+
         return view('livewire.egg.egg-chart', [
         'labels' => $labels,
         'data1'  => $data1,
         'data2'  => $data2,
+        'restock' => $data3,
         ]);
     }
 }

@@ -266,6 +266,12 @@
                     </div>
                     @endif
                     <div class="col-sm-12">
+                        <label for="disc">Tanggal </label>
+                        <div class="input-group input-group-outline mb-3">
+                          <input type="date" class="form-control" wire:model="tanggal">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <label for="disc">Jumlah Bayar <span class="text-danger">*</span> <span class="fw-bold">(Rp.{{ number_format((float)($pay ?? 0)) }})</span></label>
                         <div class="input-group input-group-outline mb-3">
                           <input type="number" class="form-control" wire:model.live="pay">

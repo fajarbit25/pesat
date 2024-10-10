@@ -154,7 +154,7 @@
               <div class="col-sm-6">
                 <label for="name">Total Perlu Dibayar </label>
                 <div class="input-group input-group-outline mb-3">
-                  <h3 class="fw-bold"> Rp.{{number_format($totalHutang)}},- </h3>
+                  <h3 class="fw-bold"> Rp.{{number_format($totalHutang) ?? 0}},- </h3>
                 </div>
               </div>
               <div class="col-sm-6">

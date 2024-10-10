@@ -49,8 +49,9 @@
                         <p class="text-xs mb-0"> {{number_format($item->sellprice)}} </p>
                       </td>
                       <td class="align-middle">
-                        <a href="/egg/{{$item->code}}/mutasi" class="text-info font-weight-bold text-xs mx-2">Detail</a>
-                        <a href="javascript:void(0)" class="text-secondary font-weight-bold text-xs" wire:click="edits({{$item->id}})">Edit</a>
+                        <a href="/egg/{{$item->code}}/mutasi" class="text-info font-weight-bold text-xs">Detail</a>
+                        <a href="javascript:void(0)" class="text-secondary font-weight-bold text-xs mx-2" wire:click="edits({{$item->id}})">Edit</a>
+                        <a href="javascript:void(0)" class="text-warning font-weight-bold text-xs" wire:click="editStock({{$item->id}}, {{$item->stock}})">Edit Stock</a>
                         @if($item->stock == 0)
                         <a href="javascript:void(0)" class="text-danger font-weight-bold text-xs mx-2" wire:click="delete({{$item->id}})">Hapus</a>
                         @endif
@@ -126,6 +127,51 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEditStock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEditStockLabel" aria-hidden="true" wire:ignore.self>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form wire:submit.prevent="updateStock">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalEditStockLabel">Edit Stock</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row">
+              <div class="col-sm-12">
+                @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                  <div class="form-text text-danger">-{{ $error }}</div>
+                @endforeach
+                @endif
+              </div>
+
+              <div class="col-sm-6">
+                <label for="stockAwal">Stock Awal  </label>
+                <div class="input-group input-group-outline mb-3">
+                  <input type="number" class="form-control" wire:model="stockAwal" disabled>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="newStock">Masukan Stok Baru <span class="text-danger">*</span> </label>
+                <div class="input-group input-group-outline mb-3">
+                  <input type="number" class="form-control" wire:model="newStock">
+                </div>
+              </div>
+              
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
   
     @push('scripts')
     <script>
@@ -164,9 +210,14 @@
                 icon: event.detail[0].icon,
               });
         });
+
+        window.addEventListener('editStock', function() {
+          $("#modalEditStock").modal('show')
+        });
   
         window.addEventListener('closeModal', function() {
           $("#modalCreate").modal('hide');
+          $("#modalEditStock").modal('hide')
         });
   
         document.addEventListener('DOMContentLoaded', function () {

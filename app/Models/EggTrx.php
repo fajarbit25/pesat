@@ -18,5 +18,6 @@ class EggTrx extends Model
         'totalprice',
         'disc',
         'keterangan',
+        'created_at',
     ];
 }

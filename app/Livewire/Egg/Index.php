@@ -3,7 +3,9 @@
 namespace App\Livewire\Egg;
 
 use App\Models\Egg;
+use App\Models\EggMutasi;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +21,10 @@ class Index extends Component
     public $stock;
     public $buyprice;
     public $sellprice;
+
+    //update stok;
+    public $stockAwal;
+    public $newStock;
 
     protected $rules = [
         'name'      => 'required|min:3',
@@ -140,5 +146,60 @@ class Index extends Component
                 'error'     => $e,
             ]);
         }
+    }
+
+    public function editStock($id, $sa)
+    {
+        $this->edit = $id;
+        $this->stockAwal = $sa;
+        $this->dispatch('editStock');
+    }
+
+    public function updateStock()
+    {
+        $this->validate([
+            'newStock'      => 'required',
+        ]);
+
+        try {
+            //Create Mutasi
+            EggMutasi::create([
+                'egg_id'        => $this->edit,
+                'supplier_id'   => 0,
+                'qty'           => $this->newStock,
+                'stockawal'     => $this->stockAwal,
+                'atockakhir'    => $this->newStock,
+                'date'          => date('Y-m-d'),
+                'user_id'       => Auth::user()->id,
+            ]);
+
+            //Update stock
+            $telur = Egg::findOrFail($this->edit);
+            $telur->update([
+                'stock'     => $this->newStock,
+            ]);
+
+            $this->dispatch('closeModal');
+
+            $this->reset('edit', 'stockAwal', 'newStock');
+
+            $this->dispatch('alert', [
+                'title'     => 'Success',
+                'message'   => 'Stock Telur berhasil diedit!',
+                'icon'      => 'success',
+            ]);
+
+        } catch (Exception $e) {
+            $this->dispatch('alert', [
+                'title'     => 'Oops',
+                'message'   => 'Stock Telur gagal diedit!',
+                'icon'      => 'error',
+                'error'     => $e->getMessage(),
+            ]);
+        }
+
+        
+
+
     }
 }

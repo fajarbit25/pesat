@@ -44,6 +44,7 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+        @if(Auth::user()->level == '1')
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('medicine*') ? 'active' : '' }} " href="{{route('medicine')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -68,6 +69,7 @@
               <span class="nav-link-text ms-1">Laporan Telur Masuk</span>
           </a>
         </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -121,7 +123,7 @@
         </li>
 
         <hr class="light horizontal my-0">
-
+        @if(Auth::user()->level == '1')
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -138,6 +140,7 @@
               <span class="nav-link-text ms-1">Toko</span>
           </a>
         </li>
+        @endif
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">

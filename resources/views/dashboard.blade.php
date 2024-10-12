@@ -2,6 +2,15 @@
 @section('content')
   <div class="row">
 
+    @if(session('error'))
+      <div class="col-sm-10 mb-3">
+        <div class="alert alert-danger text-light col-sm-12 mx-3">
+          <span class="fw-bold">{{ session('error') }}</span>
+        </div>
+      </div>
+    @endif
+
+
     <div class="col-sm-3">
       <div class="card  mb-2">
         <div class="card-header p-3 pt-2">

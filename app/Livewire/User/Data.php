@@ -83,6 +83,13 @@ class Data extends Component
 
     public function addKaryawan()
     {
+        if (empty($this->email)) {
+            $this->email = trim($this->name).rand(1111, 9999).'@gmail.com';
+        }
+
+        if (empty($this->norek)) {
+            $this->norek = "NONE";
+        }
         $this->validate();
         try {
             $user = User::create([
@@ -112,7 +119,8 @@ class Data extends Component
             $this->dispatch('alert', [
                 'title'     => 'Oops',
                 'message'   => 'Data gagal disimpan!',
-                'icon'      => 'warning'
+                'icon'      => 'warning',
+                'error'     => $e->getMessage(),
             ]);
         }
     }

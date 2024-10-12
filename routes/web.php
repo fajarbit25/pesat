@@ -18,52 +18,67 @@ Route::get('icon', function (){
 });
 
 Route::controller(DashboardController::class)->group(function() {
-    Route::get('dashboard', 'index')->middleware('auth')->name('dashboard');
-    Route::get('/', 'index')->middleware('auth')->name('home');
+    Route::get('dashboard', 'index')->middleware('staff', 'auth')->name('dashboard');
+    Route::get('/', 'index')->middleware('staff', 'auth', 'admin')->name('home');
 });
 
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('user', 'index')->middleware('auth')->name('user');
-    Route::get('user/password', 'password')->middleware('auth')->name('user.password');
-    Route::get('store/update', 'store')->middleware('auth')->name('user.store');
+    Route::get('user', 'index')->middleware('staff', 'auth', 'admin')->name('user');
+    Route::get('user/password', 'password')->middleware('staff', 'auth')->name('user.password');
+    Route::get('store/update', 'store')->middleware('staff', 'auth', 'admin')->name('user.store');
 });
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('login', 'index')->middleware('guest')->name('login');
     Route::post('authenticate', 'authenticate')->middleware('guest')->name('authenticate');
-    Route::post('logout', 'logout')->middleware('auth')->name('logout');
+    Route::post('logout', 'logout')->middleware('staff', 'auth')->name('logout');
 });
 
 Route::controller(MedicineController::class)->group(function() {
-    Route::get('medicine', 'index')->middleware('auth')->name('medicine');
-    Route::get('medicine/settings', 'settings')->middleware('auth')->name('medicine.settings');
-    Route::get('medicine/transaksi', 'transaksi')->middleware('auth')->name('medicine.transaksi');
+    Route::get('medicine', 'index')->middleware('staff', 'auth', 'admin')->name('medicine');
+    Route::get('medicine/settings', 'settings')->middleware('staff', 'auth', 'admin')->name('medicine.settings');
+    Route::get('medicine/transaksi', 'transaksi')->middleware('staff', 'auth', 'admin')->name('medicine.transaksi');
 });
 
 Route::controller(EggController::class)->group(function () {
-    Route::get('egg', 'index')->middleware('auth')->name('egg');
-    Route::get('egg/{id}/inbound', 'inbound')->middleware('auth')->name('egg.inbound');
-    Route::get('egg/{id}/outbound', 'outbound')->middleware('auth')->name('egg.outbound');
-    Route::get('egg/{id}/mutasi', 'mutasi')->middleware('auth')->name('egg.mutasi');
-    Route::get('egg/report', 'report')->middleware('auth')->name('egg.report');
-    Route::get('report-egg/in', 'laporanTelurMasuk')->middleware('auth')->name('egg.laporanTelurMasuk');
+    Route::get('egg', 'index')->middleware('staff', 'auth', 'admin')->name('egg');
+    Route::get('egg/{id}/inbound', 'inbound')->middleware('staff', 'auth', 'admin')->name('egg.inbound');
+    Route::get('egg/{id}/outbound', 'outbound')->middleware('staff', 'auth', 'admin')->name('egg.outbound');
+    Route::get('egg/{id}/mutasi', 'mutasi')->middleware('staff', 'auth', 'admin')->name('egg.mutasi');
+    Route::get('egg/report', 'report')->middleware('staff', 'auth', 'admin')->name('egg.report');
+    Route::get('report-egg/in', 'laporanTelurMasuk')->middleware('staff', 'auth', 'admin')->name('egg.laporanTelurMasuk');
 });
 
 Route::controller(HutangController::class)->group(function() {
-    Route::get('hutang', 'index')->middleware('auth')->name('hutang');
-    Route::get('buyer/', 'buyer')->middleware('auth')->name('hutang.buyer');
-    Route::get('buyer/{id}/detail', 'buyerDetail')->middleware('auth')->name('hutang.buyerDetail');
-    Route::get('hutang/{id}/detail', 'detail')->middleware('auth')->name('hutang.detail');
-    Route::get('debt', 'debt')->middleware('auth')->name('debt');
-    Route::get('debt/{id}/detail', 'debtdetail')->middleware('auth')->name('debtdetail');
-    Route::get('upah/buruh', 'upahBuruh')->middleware('auth')->name('upahBuruh');
+    Route::get('hutang', 'index')->middleware('staff', 'auth')->name('hutang');
+    Route::get('buyer/', 'buyer')->middleware('staff', 'auth')->name('hutang.buyer');
+    Route::get('buyer/{id}/detail', 'buyerDetail')->middleware('staff', 'auth')->name('hutang.buyerDetail');
+    Route::get('hutang/{id}/detail', 'detail')->middleware('staff', 'auth')->name('hutang.detail');
+    Route::get('debt', 'debt')->middleware('staff', 'auth')->name('debt');
+    Route::get('debt/{id}/detail', 'debtdetail')->middleware('staff', 'auth')->name('debtdetail');
+    Route::get('upah/buruh', 'upahBuruh')->middleware('staff', 'auth')->name('upahBuruh');
 });
 
 Route::controller(TransaksiController::class)->group(function() {
-    Route::get('transaksi', 'penjualan')->middleware('auth')->name('transaksi');
-    Route::get('transaksi/{id}/pos', 'pos')->middleware('auth')->name('transaksi.pos');
-    Route::get('inbound', 'inbound')->middleware('auth')->name('inbound');
-    Route::get('inbound/transaksi', 'transaksi')->middleware('auth')->name('inbound.transaksi');
+    Route::get('transaksi', 'penjualan')->middleware('staff', 'auth')->name('transaksi');
+    Route::get('transaksi/{id}/pos', 'pos')->middleware('staff', 'auth')->name('transaksi.pos');
+    Route::get('inbound', 'inbound')->middleware('staff', 'auth')->name('inbound');
+    Route::get('inbound/transaksi', 'transaksi')->middleware('staff', 'auth')->name('inbound.transaksi');
     Route::get('invoice/{id}/print', 'invoicePrint')->name('print.invoice');
+});
+
+Route::get('developers', function (){
+    return response()->json([
+        'status'    => 200,
+        'ok'        => true,
+        'message'   => 'Developers Info',
+        'data'      => [
+            'name'      => 'Fajar Ramadana',
+            'email'     => 'fajarramadana25@gmail.com',
+            'phone'     => '0895330078691',
+            'github'    => 'https://github.com/fajarbit25',
+            'company'   => 'PT. Purnama Sinar Gemilang',
+        ]
+    ]);
 });

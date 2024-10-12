@@ -26,9 +26,10 @@ class EggChart extends Component
     public function render()
     {
         // Kueri untuk supplier_id = 1
-        $users1 = EggMutasi::select(DB::raw("SUM(qty) as total_stock"), DB::raw("strftime('%Y-%m-%d', date) as date"))
+        $users1 = EggMutasi::join('users', 'users.id', '=', 'egg_mutasis.supplier_id')
+        ->select(DB::raw("SUM(qty) as total_stock"), DB::raw("strftime('%Y-%m-%d', date) as date"))
         ->where('egg_id', $this->eggid)
-        ->where('supplier_id', '1')
+        ->where('users.level', '5')
         ->whereMonth('date', date('m'))
         ->groupBy(DB::raw("strftime('%Y-%m-%d', date)"))
         ->pluck('total_stock', 'date');
@@ -49,7 +50,7 @@ class EggChart extends Component
                 ->pluck('total_stock', 'date');
 
         // Mengonversi tanggal menjadi format yang lebih ramah
-        $labels = $users1->keys()->merge($users2->keys(), $restock->keys())->unique()->sort()->map(function ($date) {
+        $labels = $users2->keys()->merge($restock->keys())->unique()->sort()->map(function ($date) {
         return date('d F', strtotime($date)); // Mengambil format tanggal dan nama bulan
         });
 

@@ -47,21 +47,21 @@
     
     <script type="text/javascript">
         var labels = {{ Js::from($labels) }};
-        var data1 = {{ Js::from($data1) }};
+        //var data1 = {{ Js::from($data1) }};
         var data2 = {{ Js::from($data2) }};
 
         const data = {
             labels: labels,
             datasets: [
+                // {
+                //     label: 'Total Stok Masuk',
+                //     backgroundColor: 'rgb(255, 99, 132)',
+                //     borderColor: 'rgb(255, 99, 132)',
+                //     data: data1,
+                //     fill: false,
+                // },
                 {
-                    label: 'Total Stok Masuk',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data1,
-                    fill: false,
-                },
-                {
-                    label: 'Total Stok Keluar',
+                    label: 'Total Stok',
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
                     data: data2,

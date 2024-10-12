@@ -133,7 +133,7 @@
               </div>
             </div>
             <div class="col-sm-12">
-              <label for="name">Email <span class="text-danger">*</span> </label>
+              <label for="name">Email </label>
               @error('email')<div class="form-text text-danger">{{$message}}</div>@enderror
               <div class="input-group input-group-outline mb-3">
                 <input type="email" class="form-control" wire:model="email">
@@ -151,7 +151,7 @@
               </div>
             </div>
             <div class="col-sm-12">
-              <label for="norek">Nomor Rekening <span class="text-danger">*</span> </label>
+              <label for="norek">Nomor Rekening </label>
               @error('norek')<div class="form-text text-danger">{{$message}}</div>@enderror
               <div class="input-group input-group-outline mb-3">
                 <input type="text" class="form-control" wire:model="norek">

@@ -62,25 +62,36 @@
                         <thead>
                             <tr>
                                 <td>Jemputan</td>
-                                <td>
-                                    <input type="text" style="border: 3px solid gray; width:100%; border-radius:5px; padding:2px;" value="{{number_format($items->sum('qty'))}}">
-                                </td>
+                                <td> {{number_format($items->sum('qty'))}} </td>
                             </tr>
                             <tr>
-                                <td>Stok</td>
-                                <td> <input type="text" style="border: 3px solid gray; width:100%; border-radius:5px; padding:2px;" value="{{number_format($items->sum('qty')-$stock)}}"> </td>
+                                <td>Stok Awal</td>
+                                <td>
+                                    {{number_format($stockAwal)}}
+                                </td>
                             </tr>
                             <tr class="bg-light">
                                 <td>Telur Jalan</td>
-                                <td> <input type="text" style="border: 3px solid gray; width:100%; border-radius:5px; padding:2px;" value="{{number_format($items->sum('qty'))}}"> </td>
+                                <td> {{number_format($stockOut)}} </td>
                             </tr>
                             <tr class="bg-light">
-                                <td>Stok</td>
-                                <td> <input type="text" style="border: 3px solid gray; width:100%; border-radius:5px; padding:2px;" value="{{number_format($items->sum('qty'))}}"> </td>
+                                <td>Stok Sisa</td>
+                                <td> {{number_format($items->sum('qty')+$stockAwal-$stockOut)}} </td>
                             </tr>
                             <tr>
-                                <th>Sisa Stok</th>
-                                <th> 1234 </th>
+                                <th>Selisih</th>
+                                <th>
+                                    @php
+                                        
+                                        $a = $items->sum('qty')+$stockAwal; //jemputan + stock awal
+                                        $sisa = $a-$stockOut; //jemputan + stock awal - penjualan = sisa stock
+                                        $b = $stockOut+$sisa; //penjualan + sisa stock
+
+                                        $selisih = $a-$b;
+
+                                    @endphp
+                                    {{number_format($selisih)}}
+                                </th>
                             </tr>
                             <tr>
                                 <td colspan="2"></td>

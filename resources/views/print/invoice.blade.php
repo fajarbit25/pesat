@@ -77,7 +77,7 @@
 
             <div class="col-6 mt-5">
                 <span class="fw-bold mt-4">PEMBAYARAN :</span><br/>
-                <span class="fw-light"> Nama : Salford & Co </span><br/>
+                <span class="fw-light"> Nama : {{session('store')->storename}} </span><br/>
                 <span class="fw-light"> {{$store->norek}} </span><br/>
             </div>
             <div class="col-6 mt-5">

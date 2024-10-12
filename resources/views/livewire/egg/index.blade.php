@@ -52,9 +52,9 @@
                         <a href="/egg/{{$item->code}}/mutasi" class="text-info font-weight-bold text-xs">Detail</a>
                         <a href="javascript:void(0)" class="text-secondary font-weight-bold text-xs mx-2" wire:click="edits({{$item->id}})">Edit</a>
                         <a href="javascript:void(0)" class="text-warning font-weight-bold text-xs" wire:click="editStock({{$item->id}}, {{$item->stock}})">Edit Stock</a>
-                        @if($item->stock == 0)
+                        {{-- @if($item->stock == 0)
                         <a href="javascript:void(0)" class="text-danger font-weight-bold text-xs mx-2" wire:click="delete({{$item->id}})">Hapus</a>
-                        @endif
+                        @endif --}}
                       </td>
                     </tr>
                     @endforeach

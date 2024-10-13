@@ -21,6 +21,7 @@
                         <h6 class="text-white text-capitalize ps-3">Detail Transaksi</h6>
                         <span class="fw-bold mx-3 text-light">Nama : </span> <span class="fw-bold text-light">{{$name}}</span><br/>
                         <span class="fw-bold mx-3 text-light">Alamat : </span> <span class="fw-bold text-light">{{$address}}</span><br/>
+                        <span class="fw-bold mx-3 text-light">Total Hutang : </span> <span class="fw-bold text-light">Rp.{{number_format($totalHutang)}},-</span><br/>
                         <span class="fw-bold mx-3 text-light">Periode : </span> <span class="fw-bold text-light">{{$month}}</span><br/>
                     </div>
                     <div class="col-sm-6 text-end">

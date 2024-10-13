@@ -37,6 +37,7 @@ class Detail extends Component
     {
         $user = User::findOrFail($this->userid);
 
+        $this->getTotalHutang();
         $this->getItems();
         $this->getProduk();
         return view('livewire.hutang.detail', [
@@ -45,6 +46,11 @@ class Detail extends Component
             'name'     => $user->name,
             'address'  => $user->address,
         ]);
+    }
+
+    public function getTotalHutang()
+    {
+        $this->totalHutang = HutangPlasma::where('user_id', $this->userid)->sum('hutang') ?? 0;
     }
 
     public function getItems()
@@ -63,7 +69,7 @@ class Detail extends Component
     public function getProduk()
     {
         $month = substr($this->month, 5, 2);
-        
+
         $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)

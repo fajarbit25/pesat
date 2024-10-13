@@ -49,6 +49,7 @@
                         <th>Jumlah</th>
                         <th>Harga</th>
                         <th>Total</th>
+                        <th>Hapus</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,7 @@
                         <td> {{number_format($item->qty)}} </td>
                         <td> {{number_format($item->price)}} </td>
                         <td> {{number_format($item->total)}} </td>
+                        <td> <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
                       </tr>
                       @endforeach
                       <tr>
@@ -80,6 +82,7 @@
                         <th>Jumlah</th>
                         <th>Harga</th>
                         <th>Total</th>
+                        <th>Hapus</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -91,6 +94,7 @@
                         <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->qty)}} @endif </td>
                         <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->price)}} @endif </td>
                         <td> {{number_format($item->total)}} </td>
+                        <td> <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
                       </tr>
                       @endforeach
                       <tr>
@@ -185,6 +189,54 @@
   
         window.addEventListener('closeModal', function() {
           $("#modalDetail").modal('hide');
+        });
+
+        window.addEventListener('confirmDeleteTelur', function() {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Yakin ingin menghapus data telur?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // Call Livewire method to delete the file
+                //this.Livewire.emit('deleting');
+                Livewire.dispatch('deletingEgg')
+            } else {
+              Swal.fire({
+                title: "Cancelled",
+                text: "Your data is safe!.",
+                icon: "error"
+              });
+            }
+          });
+        });
+
+        window.addEventListener('confirmDeleteProduk', function() {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Yakin ingin menghapus data Produk?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // Call Livewire method to delete the file
+                //this.Livewire.emit('deleting');
+                Livewire.dispatch('deletingProduk')
+            } else {
+              Swal.fire({
+                title: "Cancelled",
+                text: "Your data is safe!.",
+                icon: "error"
+              });
+            }
+          });
         });
   
         document.addEventListener('DOMContentLoaded', function () {

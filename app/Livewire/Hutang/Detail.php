@@ -30,7 +30,7 @@ class Detail extends Component
     public function mount($userid)
     {
         $this->userid = $userid;
-        $this->month = date('Y M');
+        $this->month = date('Y-m');
     }
 
     public function render()

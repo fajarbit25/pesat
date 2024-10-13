@@ -60,7 +60,7 @@ class Detail extends Component
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
-                        ->whereBetween('egg_trxes.created_at', [$this->starDate, $this->endDate])
+                        ->whereBetween('egg_trans_temps.created_at', [$this->starDate, $this->endDate])
                         ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
@@ -72,7 +72,7 @@ class Detail extends Component
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
-                        ->whereBetween('egg_trxes.created_at', [$this->starDate, $this->endDate])
+                        ->whereBetween('egg_trans_temps.created_at', [$this->starDate, $this->endDate])
                         ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }

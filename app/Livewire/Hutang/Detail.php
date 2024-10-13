@@ -26,6 +26,8 @@ class Detail extends Component
     public $idDeleteTelur;
     public $idDeleteProduct;
     public $totalHutang;
+    public $endDate;
+    public $starDate;
 
     public function mount($userid)
     {
@@ -51,26 +53,26 @@ class Detail extends Component
     {
         $startDate = $this->month . '-01'; // Start of the month
         $endDate = date('Y-m-t', strtotime($startDate)); // End of the month
+        $this->starDate = $startDate;
+        $this->endDate = $endDate;
 
         $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
-                        ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
+                        ->whereBetween('egg_trxes.created_at', [$this->starDate, $this->endDate])
                         ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function getProduk()
     {
-        $startDate = $this->month . '-01'; // Start of the month
-        $endDate = date('Y-m-t', strtotime($startDate)); // End of the month
 
         $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
-                        ->whereBetween('egg_trxes.created_at', [$startDate, $endDate])
+                        ->whereBetween('egg_trxes.created_at', [$this->starDate, $this->endDate])
                         ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }

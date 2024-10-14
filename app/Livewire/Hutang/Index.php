@@ -66,8 +66,21 @@ class Index extends Component
     public function prosesEditHutang()
     {
         try {
+            $validated = $this->validate([
+                'hutangBaru'    => 'required|integer'
+            ]);
+
+            // Ubah tanda nilai (positif jadi negatif, negatif jadi positif)
+            if ($this->hutangBaru > 0) {
+                // Jika input positif, simpan sebagai negatif
+                $this->hutangBaru = -$this->hutangBaru;
+            } elseif ($this->hutangBaru < 0) {
+                // Jika input negatif, simpan sebagai positif
+                $this->hutangBaru = abs($this->hutangBaru); // Mengambil nilai absolut (positif)
+            }
+
             HutangPlasma::where('user_id', $this->idBayar)->update([
-                'hutang'    => $this->hutangBaru,
+                'hutang'    => -$validated['hutangBaru'],
             ]);
 
             $this->dispatch('closeModal');

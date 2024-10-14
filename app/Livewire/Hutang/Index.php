@@ -23,6 +23,8 @@ class Index extends Component
     public $totalHutang;
     public $pay;
 
+    public $hutangBaru;
+
     public function render()
     {
         $this->getHutang();
@@ -52,6 +54,39 @@ class Index extends Component
 
         }
         
+    }
+
+    public function editHutang($id)
+    {
+        $this->idBayar = $id;
+        $this->totalHutang = HutangPlasma::where('user_id', $this->idBayar)->sum('hutang');
+        $this->dispatch('modalEditHutang');
+    }
+
+    public function prosesEditHutang()
+    {
+        try {
+            HutangPlasma::where('user_id', $this->idBayar)->update([
+                'hutang'    => $this->hutangBaru,
+            ]);
+
+            $this->dispatch('closeModal');
+
+            $this->reset('idBayar', 'hutangBaru', 'totalHutang');
+
+            $this->dispatch('alert', [
+                'title'     => 'Success',
+                'message'   => 'Hutang Diperbaharui',
+                'icon'      => 'success',
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('alert', [
+                'title'     => 'Oops',
+                'message'   => 'Terjadi kesalahan',
+                'icon'      => 'error',
+                'error'     => $e->getMessage(),
+            ]);
+        }
     }
 
     public function bayarHutang($id)

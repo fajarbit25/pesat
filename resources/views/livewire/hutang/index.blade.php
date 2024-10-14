@@ -1,6 +1,17 @@
 <div class="col-sm-12">
     <div class="row">
 
+      @session('success')
+      <div class="col-sm-12">
+          <div class="alert alert-success alert-dismissible text-white" role="alert">
+              <span class="text-sm"> {{session('success')}} </span>
+              <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      </div>
+      @endsession
+
         <div class="col-12">
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -29,7 +40,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Handphone</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Hutang</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bayar</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -57,12 +68,21 @@
                         <p class="text-xs text-secondary font-weight-bold mb-0"> {{$item->address}} </p>
                       </td>
                       <td class="align-middle text-sm">
-                        <p class="text-xs @if($item->hutang < 0) text-success @endif fw-bold mb-0"> <span class="fw-bold">{{number_format(abs($item->hutang))}}</span> </p>
+                        <p class="text-xs @if($item->hutang < 0) text-success @endif fw-bold mb-0"> 
+                            <span class="fw-bold">
+                              @if($item->hutang > 0)
+                                -{{number_format(abs($item->hutang))}}
+                              @else
+                                {{number_format(abs($item->hutang))}}
+                              @endif
+                          </span> 
+                        </p>
                       </td>
                       <td class="align-middle text-sm">
-                        <p class="text-xs fw-bold mb-0">
+                        <p class="text-xs fw-bold mb-0"> 
+                          <a href="javascript:void(0)" class="fw-bold text-success mx-2" wire:click="editHutang({{$item->id}})"> Edit </a>
                           @if($item->hutang < 0)
-                          <a href="javascript:void(0)" class="fw-bold text-warning" wire:click="bayarHutang({{$item->id}})"> Bayar </a>
+                            <a href="javascript:void(0)" class="fw-bold text-warning" wire:click="bayarHutang({{$item->id}})"> Bayar </a>
                           @endif
                         </p>
                       </td>
@@ -173,6 +193,46 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true" wire:ignore.self>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalEditLabel">Edit Hutang</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row">
+              <div class="col-sm-12">
+              </div>
+              <div class="col-sm-6">
+                <label for="name">Total Sekarang </label>
+                <div class="input-group input-group-outline mb-3">
+                  @if($totalHutang > 0)
+                    <h3 class="fw-bold"> Rp.-{{number_format(abs($totalHutang ?? 0))}},- </h3>
+                  @else
+                    <h3 class="fw-bold"> Rp.{{number_format(abs($totalHutang ?? 0))}},- </h3>
+                  @endif
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="hutangBaru">Masukan Total Baru <span class="text-danger">*</span> @if($hutangBaru != "") <span class="fw-bold">(Rp.{{number_format($hutangBaru ?? 0)}},-)</span> @endif </label>
+                <div class="input-group input-group-outline mb-3">
+                  <input type="number" class="form-control" wire:model.live="hutangBaru">
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-success" wire:click="prosesEditHutang">simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
     @push('scripts')
     <script>
@@ -181,6 +241,9 @@
         });
         window.addEventListener('modalBayar', function() {
           $("#modalBayar").modal('show');
+        });
+        window.addEventListener('modalEditHutang', function() {
+          $("#modalEdit").modal('show');
         });
   
         window.addEventListener('confirmDelete', function() {
@@ -218,6 +281,7 @@
         window.addEventListener('closeModal', function() {
           $("#modalCreate").modal('hide');
           $("#modalBayar").modal('hide');
+          $("#modalEdit").modal('hide');
         });
   
         document.addEventListener('DOMContentLoaded', function () {

@@ -157,7 +157,7 @@
                           $grandTotalPengambilan = $totalPengambilan-$discProduk;
                           $grandtotalTelur = $totalTelur-$discTelur;
                       @endphp
-                      <th class="text-end" colspan="3">{{number_format($grandTotalPengambilan-$grandtotalTelur)}}</th>
+                      <th class="text-end" colspan="3">{{number_format($grandtotalTelur-$grandTotalPengambilan)}}</th>
                     </tr>
                   </table>
                 </div>

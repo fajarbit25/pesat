@@ -80,7 +80,9 @@
                       </td>
                       <td class="align-middle text-sm">
                         <p class="text-xs fw-bold mb-0"> 
+                          @if(Auth::user()->level == 1)
                           <a href="javascript:void(0)" class="fw-bold text-success mx-2" wire:click="editHutang({{$item->id}})"> Edit </a>
+                          @endif
                           @if($item->hutang < 0)
                             <a href="javascript:void(0)" class="fw-bold text-warning" wire:click="bayarHutang({{$item->id}})"> Bayar </a>
                           @endif

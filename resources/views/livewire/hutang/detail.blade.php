@@ -70,7 +70,9 @@
                             {{number_format($item->total)}}
                           @endif
                         </td>
-                        <td> <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
+                        <td> 
+                          {{-- <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a>  --}}
+                        </td>
                       </tr>
                       @endforeach
                       <tr>
@@ -115,7 +117,9 @@
                         <td> 
                           {{number_format($item->total)}}
                         </td>
-                        <td> <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
+                        <td> 
+                          {{-- <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a>  --}}
+                        </td>
                       </tr>
                       @endforeach
                       <tr>

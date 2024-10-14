@@ -253,7 +253,7 @@ class Inbound extends Component
 
                 //simpan data ke mutasi
                 $trxTemp = EggTransTemp::where('trx_id', $idtransaksi)->get();
-                foreach($trxTemp as $tx){
+                foreach ($trxTemp as $tx) {
                     $eggs = Egg::findOrFail($tx->egg_id);
                     
                     //stockAkhir

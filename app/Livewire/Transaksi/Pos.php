@@ -222,7 +222,7 @@ class Pos extends Component
                 //update hutang plasma
                 $hutang = HutangPlasma::where('user_id', $this->idPelanggan)->first();
                 $hutangAwal = $hutang->hutang;
-                $hutangAkhir = $hutangAwal+$this->sumTx;
+                $hutangAkhir = $hutangAwal+$this->sumTx-$this->disc;
 
                 HutangPlasma::where('user_id', $this->idPelanggan)->update([
                     'hutang' => $hutangAkhir

@@ -65,7 +65,7 @@
                         <td> @if($item->idbarang == '1') @if($item->disc == 0) - @else {{number_format($item->disc)}} @endif @else - @endif </td>
                         <td> 
                           @if($item->idbarang == '1')
-                            {{number_format($item->total-$item->disc)}}
+                            {{number_format($item->total)}}
                           @else
                             {{number_format($item->total)}}
                           @endif
@@ -113,7 +113,7 @@
                           @endforeach
                         </td>
                         <td> 
-                          {{number_format($item->total)}} 
+                          {{number_format($item->total)}}
                         </td>
                         <td> <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
                       </tr>
@@ -127,30 +127,41 @@
                 </div>
 
                 @php
-                    $diskonTelur = $items->sum('disc');
-                    $diskonProduk = $produk->sum('disc');
+                    $totalPengambilan = $produk->sum('total');
+                    $totalTelur = $items->sum('total');
                 @endphp
 
                 <div class="col-sm-12">
                   <table class="table table-bordered" style="font-size:12px;">
                     <tr>
+                      <td></td>
+                      <th>Jumlah</th>
+                      <th>Disc</th>
+                      <th class="text-end">Total</th>
+                    </tr>
+                    <tr>
                       <th>Telur Masuk</th>
-                      <td> {{number_format($items->sum('total'))}} </td>
+                      <td> {{number_format($totalTelur)}} </td>
+                      <td> {{number_format($discTelur)}} </td>
+                      <td class="text-end">{{number_format($totalTelur-$discTelur)}}</td>
                     </tr>
                     <tr>
                       <th>Pengambilan Barang</th>
-                      <td>{{number_format($produk->sum('total'))}}</td>
-                    </tr>
-                    <tr>
-                      <th>Discount</th>
-                      <td>{{number_format($diskonProduk+$diskonTelur)}}</td>
+                      <td>{{number_format($totalPengambilan)}}</td>
+                      <td>{{number_format($discProduk)}}</td>
+                      <td class="text-end">{{number_format($totalPengambilan-$discProduk)}}</td>
                     </tr>
                     <tr class="bg-light">
                       <th>Grand Total</th>
-                      <th>{{number_format($items->sum('total')-$produk->sum('total'))}}</th>
+                      @php
+                          $grandTotalPengambilan = $totalPengambilan-$discProduk;
+                          $grandtotalTelur = $totalTelur-$discTelur;
+                      @endphp
+                      <th class="text-end" colspan="3">{{number_format($grandTotalPengambilan-$grandtotalTelur)}}</th>
                     </tr>
                   </table>
                 </div>
+
               </div>
             </div>
           </div>

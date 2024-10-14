@@ -26,6 +26,8 @@ class Detail extends Component
     public $idDeleteTelur;
     public $idDeleteProduct;
     public $totalHutang;
+    public $discTelur;
+    public $discProduk;
 
     public function mount($userid)
     {
@@ -40,6 +42,7 @@ class Detail extends Component
         $this->getTotalHutang();
         $this->getItems();
         $this->getProduk();
+        $this->getDisc();
         return view('livewire.hutang.detail', [
             'items'    => $this->items,
             'produk'   => $this->produk,
@@ -88,6 +91,20 @@ class Detail extends Component
         $this->dispatch('modalDetail');
     }
 
+    public function getDisc()
+    {
+        $month = substr($this->month, 5, 2);
+        $this->discTelur = EggTrx::whereMonth('created_at', $month)
+                    ->where('costumer_id', $this->userid)
+                    ->where('tipetrx', 'egg')
+                    ->sum('disc') ?? 0;
+        
+        $this->discProduk = EggTrx::whereMonth('created_at', $month)
+                    ->where('costumer_id', $this->userid)
+                    ->where('tipetrx', 'pakan')
+                    ->sum('disc') ?? 0;
+    }
+
     public function modalDetail($id)
     {
         $this->dataTrx = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
@@ -119,8 +136,12 @@ class Detail extends Component
             $trx = EggTrx::where('idtransaksi', $this->idDeleteTelur)->first();
             $trxTotalAwal = $trx->totalprice;
             $userid = $trx->costumer_id;
+
+            $disc = $trx->disc;
+            $newTotalPrice = $trxTotalAwal-$totalTrx;
+
             EggTrx::where('idtransaksi', $this->idDeleteTelur)->update([
-                'totalprice'    => $trxTotalAwal-$totalTrx,
+                'totalprice'    => $newTotalPrice,
             ]);
 
             //update stock;

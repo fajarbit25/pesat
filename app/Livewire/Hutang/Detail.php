@@ -62,8 +62,8 @@ class Detail extends Component
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $month)
-                        ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+                        ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function getProduk()
@@ -75,8 +75,8 @@ class Detail extends Component
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $month)
-                        ->select('egg_trxes.*', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+                        ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function modalDetailEgg($id)

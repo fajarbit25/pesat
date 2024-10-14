@@ -49,6 +49,7 @@
                         <th>Nama</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
+                        <th>Disc</th>
                         <th>Total</th>
                         <th>Hapus</th>
                       </tr>
@@ -61,7 +62,14 @@
                         <td> {{$item->name}} </td>
                         <td> {{number_format($item->qty)}} </td>
                         <td> {{number_format($item->price)}} </td>
-                        <td> {{number_format($item->total)}} </td>
+                        <td> @if($item->idbarang == '1') @if($item->disc == 0) - @else {{number_format($item->disc)}} @endif @else - @endif </td>
+                        <td> 
+                          @if($item->idbarang == '1')
+                            {{number_format($item->total-$item->disc)}}
+                          @else
+                            {{number_format($item->total)}}
+                          @endif
+                        </td>
                         <td> <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
                       </tr>
                       @endforeach
@@ -82,6 +90,7 @@
                         <th>Nama</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
+                        <th>Disc</th>
                         <th>Total</th>
                         <th>Hapus</th>
                       </tr>
@@ -94,7 +103,18 @@
                         <td> {{$item->name}} </td>
                         <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->qty)}} @endif </td>
                         <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->price)}} @endif </td>
-                        <td> {{number_format($item->total)}} </td>
+                        <td>
+                          @foreach($produk->groupBy('idtransaksi') as $idtrx => $produks)
+                            @if($idtrx == $item->idtransaksi)
+                              @if($item->idbarang == $produks->first()->idbarang)
+                                {{number_format($item->disc)}}
+                              @endif
+                            @endif
+                          @endforeach
+                        </td>
+                        <td> 
+                          {{number_format($item->total)}} 
+                        </td>
                         <td> <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> </td>
                       </tr>
                       @endforeach
@@ -106,6 +126,11 @@
                   </table>
                 </div>
 
+                @php
+                    $diskonTelur = $items->sum('disc');
+                    $diskonProduk = $produk->sum('disc');
+                @endphp
+
                 <div class="col-sm-12">
                   <table class="table table-bordered" style="font-size:12px;">
                     <tr>
@@ -115,6 +140,10 @@
                     <tr>
                       <th>Pengambilan Barang</th>
                       <td>{{number_format($produk->sum('total'))}}</td>
+                    </tr>
+                    <tr>
+                      <th>Discount</th>
+                      <td>{{number_format($diskonProduk+$diskonTelur)}}</td>
                     </tr>
                     <tr class="bg-light">
                       <th>Grand Total</th>

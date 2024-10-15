@@ -29,6 +29,7 @@ class Detail extends Component
     public $discTelur;
     public $discProduk;
 
+
     public function mount($userid)
     {
         $this->userid = $userid;
@@ -133,16 +134,15 @@ class Detail extends Component
         try {
 
             //update Trx
-            $trx = EggTrx::where('idtransaksi', $this->idDeleteTelur)->first();
-            $trxTotalAwal = $trx->totalprice;
-            $userid = $trx->costumer_id;
+            $trx = EggTrx::where('idtransaksi', $this->idDeleteTelur)->get();
+            $trxTotalAwal = $trx->sum('totalprice');
+            $userid = $trx->first()->costumer_id;
+            $disc = $trx->sum('disc');
+            // $newTotalPrice = $trxTotalAwal-$totalTrx;
 
-            $disc = $trx->disc;
-            $newTotalPrice = $trxTotalAwal-$totalTrx;
-
-            EggTrx::where('idtransaksi', $this->idDeleteTelur)->update([
-                'totalprice'    => $newTotalPrice,
-            ]);
+            // EggTrx::where('idtransaksi', $this->idDeleteTelur)->update([
+            //     'totalprice'    => $newTotalPrice,
+            // ]);
 
             //update stock;
             $telur = Egg::findOrFail($idTelur);
@@ -164,14 +164,17 @@ class Detail extends Component
             ]);
 
             //upate hutang costumer
+            $penambahanhutang = $trxTotalAwal;
             $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();
+
             $hutang = HutangPlasma::findOrFail($hutangPlasma->id);
             $hutang->update([
-                'hutang'    => $hutangPlasma->hutang-$totalTrx,
+                'hutang'    => $hutangPlasma->hutang+$penambahanhutang,
             ]);
 
             //delete transtemp
             EggTransTemp::where('trx_id', $this->idDeleteTelur)->delete();
+            EggTrx::where('idtransaksi', $this->idDeleteTelur)->delete();
 
             $this->reset('idDeleteTelur');
 
@@ -216,9 +219,9 @@ class Detail extends Component
             $trx = EggTrx::where('idtransaksi', $this->idDeleteProduct)->first();
             $trxTotalAwal = $trx->totalprice;
             $userid = $trx->costumer_id;
-            EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
-                'totalprice'    => $trxTotalAwal-$totalTrx,
-            ]);
+            // EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
+            //     'totalprice'    => $trxTotalAwal-$totalTrx,
+            // ]);
 
             //update stock;
             $telur = Medicine::findOrFail($idProduk);
@@ -240,14 +243,16 @@ class Detail extends Component
             ]);
 
             //upate hutang costumer
+            $penambahanhutang = $trxTotalAwal;
             $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();
             $hutang = HutangPlasma::findOrFail($hutangPlasma->id);
             $hutang->update([
-                'hutang'    => $hutangPlasma->hutang-$totalTrx,
+                'hutang'    => $hutangPlasma->hutang-$penambahanhutang,
             ]);
 
             //delete transtemp
             EggTransTemp::where('trx_id', $this->idDeleteProduct)->delete();
+            EggTrx::where('idtransaksi', $this->idDeleteProduct)->delete();
 
             $this->reset('idDeleteProduct');
 
@@ -269,4 +274,6 @@ class Detail extends Component
 
 
     }
+
+    
 }

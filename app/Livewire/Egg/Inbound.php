@@ -282,10 +282,12 @@ class Inbound extends Component
 
                     $hutang = HutangPlasma::where('user_id', $this->idPelanggan)->first();
                     $hutangAwal = $hutang->hutang;
+                    $hutangs = $totalTrx+$this->disc;
+
                     if ($this->bound == 'pembelian') {
-                        $hutangAkhir = $hutangAwal-$totalTrx;
+                        $hutangAkhir = $hutangAwal-$hutangs;
                     } else {
-                        $hutangAkhir = $hutangAwal+$totalTrx;
+                        $hutangAkhir = $hutangAwal+$hutangs;
                     }
 
                     HutangPlasma::where('user_id', $this->idPelanggan)->update([

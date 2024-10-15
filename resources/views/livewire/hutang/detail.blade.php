@@ -71,7 +71,7 @@
                           @endif
                         </td>
                         <td> 
-                          {{-- <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a>  --}}
+                          <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> 
                         </td>
                       </tr>
                       @endforeach
@@ -118,7 +118,7 @@
                           {{number_format($item->total)}}
                         </td>
                         <td> 
-                          {{-- <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a>  --}}
+                          <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> 
                         </td>
                       </tr>
                       @endforeach
@@ -223,6 +223,10 @@
         window.addEventListener('modalDetail', function() {
           $("#modalDetail").modal('show');
         });
+
+        window.addEventListener('modalEditTelur', function() {
+          $("#modalEditTelur").modal('show');
+        });
   
         window.addEventListener('alert', function(event){
           Swal.fire({
@@ -234,6 +238,7 @@
   
         window.addEventListener('closeModal', function() {
           $("#modalDetail").modal('hide');
+          $("#modalEditTelur").modal('hide');
         });
 
         window.addEventListener('confirmDeleteTelur', function() {

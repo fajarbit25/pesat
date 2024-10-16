@@ -169,8 +169,14 @@
                             @php
                                 if ( $jemputan && $sAwal && $tJalan) {
                                     $stockAkhir = $jemputan+$sAwal-$tJalan;
+
+                                    $a = $jemputan+$sAwal;
+                                    $b = $tJalan+$stockAkhir;
+
+                                    $selisih = $a-$b;
                                 } else {
                                     $stockAkhir = 0;
+                                    $selisih = 0;
                                 }
                             @endphp
                         <div class="row align-items-center">
@@ -189,7 +195,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group input-group-outline">
-                                    <input type="number" class="form-control" value="" disabled>
+                                    <input type="number" class="form-control" value="{{$selisih}}" disabled>
                                 </div>
                             </div>
                         </div>

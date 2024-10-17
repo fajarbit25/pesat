@@ -59,6 +59,9 @@
                                         @else
                                             <span class="badge badge-sm bg-gradient-danger">Belum Lunas</span>
                                         @endif
+                                        @if(Auth::user()->level == '1')
+                                        <a href="javascript:void(0)" wire:click="confirmEdit('{{$item->idtransaksi}}')" class="text-warning fw-bold mx-2"> Edit </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -128,6 +131,38 @@
 
         window.addEventListener('closeModal', function() {
           $("#modalDetail").modal('hide');
+        });
+
+        window.addEventListener('confirmEdit', function() {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Yakin ingin mengedit transaksi?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Lanjutkan"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // Call Livewire method to delete the file
+                //this.Livewire.emit('deleting');
+                Livewire.dispatch('editing')
+            } else {
+              Swal.fire({
+                title: "Cancelled",
+                text: "Your data is safe!.",
+                icon: "error"
+              });
+            }
+          });
+        });
+
+        window.addEventListener('alert', function(event){
+          Swal.fire({
+                title: event.detail[0].title,
+                text: event.detail[0].message,
+                icon: event.detail[0].icon,
+              });
         });
     </script>
     @endpush

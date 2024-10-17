@@ -20,6 +20,7 @@ class UpahBuruh extends Component
     public $idBayar;
     public $delete;
 
+    public $tanggal;
     public $userid;
     public $amount;
     public $ket;
@@ -33,6 +34,7 @@ class UpahBuruh extends Component
     public function mount()
     {
         $this->getUser();
+        $this->tanggal = date('Y-m-d');
     }
 
     public function render()
@@ -71,6 +73,7 @@ class UpahBuruh extends Component
             'status'        => 'pending',
             'amount'        => $this->amount,
             'keterangan'    => $this->ket,
+            'created_at'    => $this->tanggal.' '.date('H:i:s'),
         ];
         
         try {

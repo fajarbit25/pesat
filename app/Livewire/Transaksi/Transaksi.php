@@ -26,10 +26,12 @@ class Transaksi extends Component
     public $status;
     public $dataSupplier;
     public $supplier;
+    public $tanggal;
 
     public function mount()
     {
         $this->getSupplier();
+        $this->tanggal = date('Y-m-d');
     }
 
     public function render()
@@ -143,15 +145,22 @@ class Transaksi extends Component
         if ($this->pay == $this->sumTx) {
             try {
                 //create trx
+                if ($this->status == 'pending') {
+                    $cost = $this->supplier;
+                } else {
+                    $cost = Auth::user()->id;
+                }
+
                 $trx = EggTrx::create([
                     'idtransaksi'       => time(),
                     'user_id'           => Auth::user()->id,
-                    'costumer_id'       => Auth::user()->id,
+                    'costumer_id'       => $cost,
                     'tipetrx'           => 'pakan',
                     'payment_status'    => $this->status,
                     'trxtipe'           => 'pembelian',
                     'totalprice'        => $this->sumTx,
-                    'disc'              => $this->disc
+                    'disc'              => $this->disc,
+                    'created_at'        => $this->tanggal.' '.date('H:i:s'),
                 ]);
 
                 //update status temp
@@ -178,7 +187,7 @@ class Transaksi extends Component
                         'qty'           => $item->qty,
                         'stockawal'     => $produk->stock,
                         'atockakhir'    => $stockAkhir,
-                        'date'          => date('Y-m-d'),
+                        'date'          => $this->tanggal,
                         'user_id'       => Auth::user()->id,
                     ]);
 
@@ -189,7 +198,7 @@ class Transaksi extends Component
                 }
 
                 if ($this->status == 'pending') {
-                    $tanggal = date('Y-m-d');
+                    $tanggal = $this->tanggal;
                     Hutang::create([
                         'tanggal'       => $tanggal,
                         'due_date'      => Carbon::parse($tanggal)->addDays(30),

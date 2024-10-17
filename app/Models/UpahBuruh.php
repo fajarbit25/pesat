@@ -13,5 +13,6 @@ class UpahBuruh extends Model
         'status',
         'amount',
         'keterangan',
+        'created_at',
     ];
 }

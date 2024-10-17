@@ -79,6 +79,12 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
+                        <label for="tanggal">Tanggal Pekerjaan <span class="text-danger">*</span> </label>
+                        <div class="input-group input-group-outline mb-3">
+                          <input type="date" class="form-control" wire:model="tanggal">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <label for="ket">Keterangan <span class="text-danger">*</span> </label>
                         <div class="input-group input-group-outline mb-3">
                           <textarea class="form-control" wire:model="ket" rows="3"></textarea>

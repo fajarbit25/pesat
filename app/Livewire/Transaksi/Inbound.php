@@ -4,6 +4,8 @@ namespace App\Livewire\Transaksi;
 
 use App\Models\EggTransTemp;
 use App\Models\EggTrx;
+use App\Models\Hutang;
+use App\Models\Medicine;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,8 +13,10 @@ class Inbound extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
+    protected $listeners = ['editing' => 'editTransaksi'];
     private $items;
     public $dataTrx;
+    public $idtransaksi;
 
     public function render()
     {
@@ -37,5 +41,60 @@ class Inbound extends Component
                                 ->select('trx_id', 'medicines.name', 'medicines.code', 'qty', 'egg_trans_temps.price', 'total')
                                 ->get();
         $this->dispatch('modalDetail');
+    }
+
+    public function confirmEdit($id)
+    {
+        $this->idtransaksi = $id;
+        $this->dispatch('confirmEdit');
+    }
+
+    public function editTransaksi()
+    {
+
+        try {
+            //delete temp actiiv
+            EggTransTemp::where('status', 'active')->delete();
+
+            //update temp
+            EggTransTemp::where('trx_id', $this->idtransaksi)->update([
+                'status'    => 'active',
+            ]);
+
+            //delete trx
+            EggTrx::where('idtransaksi', $this->idtransaksi)->delete();
+
+            //updateStock
+            $temp = EggTransTemp::where('trx_id', $this->idtransaksi)->get();
+            
+            foreach ($temp as $item) {
+                $medicine = Medicine::findOrFail($item->egg_id);
+                $stock = $medicine->stock-$item->qty;
+                $medicine->update([
+                    'stock'     => $stock,
+                ]);
+
+                //update idtrx
+                $eggtemp = EggTransTemp::findOrFail($item->id);
+                $eggtemp->update([
+                    'trx_id'    => null,
+                ]);
+            }
+
+            //delete hutang
+            Hutang::where('idtrx', $this->idtransaksi)->delete();
+
+            return redirect('inbound/transaksi');
+
+        } catch (\Exception $e) {
+            $this->dispatch('alert', [
+                'title'     => 'Oops',
+                'message'   => 'Terjadi Kesalahan',
+                'icon'      => 'error',
+                'error'     => $e->getMessage(),
+            ]);
+        }
+
+        
     }
 }

@@ -180,6 +180,12 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
+                        <label for="tanggal">Tanggal <span class="fw-bold">*</span></label>
+                        <div class="input-group input-group-outline mb-3">
+                          <input type="date" class="form-control" wire:model="tanggal">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <label for="status">Status <span class="fw-text-danger">*</span></label>
                         <div class="input-group input-group-outline mb-3">
                           <select class="form-control" wire:model.live="status">

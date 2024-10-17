@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Models\EggPrice;
 use App\Models\HutangPlasma;
 use App\Models\User;
 use App\Models\UserLevel;
@@ -106,7 +107,9 @@ class Data extends Component
 
             if ($this->level >= '3') {
                 $this->addHutang($user->id);
+                $this->addEggPrice($user->id);
             }
+
             
             $this->reset('name', 'phone', 'level', 'email', 'password', 'norek', 'address');
             $this->dispatch('closeModal');
@@ -123,6 +126,16 @@ class Data extends Component
                 'error'     => $e->getMessage(),
             ]);
         }
+    }
+
+    public function addEggPrice($id)
+    {
+        EggPrice::create([
+            'user_id'       => $id,
+            'big'           => 44500,
+            'small'         => 34000,
+            'broken'        => 0,
+        ]);
     }
 
     public function addHutang($id)

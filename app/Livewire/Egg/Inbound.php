@@ -4,6 +4,7 @@ namespace App\Livewire\Egg;
 
 use App\Models\Egg;
 use App\Models\EggMutasi;
+use App\Models\EggPrice;
 use App\Models\EggSupplier;
 use App\Models\EggTransTemp;
 use App\Models\EggTrx;
@@ -178,12 +179,16 @@ class Inbound extends Component
 
     public function addEgg($id)
     {
-        $eggs = Egg::findOrFail($id);
-        if ($this->bound == 'pembelian') {
-            $price = $eggs->buyprice;
+        $loadPrice = EggPrice::where('user_id', $this->idPelanggan)->first();
+        if ($id == 1) {
+            $price = $loadPrice->big ?? 0;
+        } elseif ($id == 2) {
+            $price = $loadPrice->small ?? 0;
         } else {
-            $price = $eggs->sellprice;
+            $price = $loadPrice->broken ?? 0;
         }
+
+
         try {
             EggTransTemp::create([
                 'egg_id'        => $id,
@@ -198,6 +203,7 @@ class Inbound extends Component
                 'title'     => 'Oops',
                 'message'   => 'Gagal menambahkan item',
                 'icon'      => 'error', 
+                'error'     => $e->getMessage(),
             ]);
         }
     }

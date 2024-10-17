@@ -58,6 +58,7 @@ Route::controller(HutangController::class)->group(function() {
     Route::get('debt', 'debt')->middleware('staff', 'auth')->name('debt');
     Route::get('debt/{id}/detail', 'debtdetail')->middleware('staff', 'auth')->name('debtdetail');
     Route::get('upah/buruh', 'upahBuruh')->middleware('staff', 'auth')->name('upahBuruh');
+    Route::get('/hutang/harga-telur', 'hargaTelur')->middleware('auth', 'staff')->name('hargaTelur');
 });
 
 Route::controller(TransaksiController::class)->group(function() {

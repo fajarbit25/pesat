@@ -128,7 +128,6 @@
                                     <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Stok</th>
-                                    <th>Harga</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,7 +137,6 @@
                                     <td> <a href="javascript:void(0);" wire:click="addEgg({{$item->id}})" class="text-primary fw-bold">{{$item->code}}</a>  </td>
                                     <td> {{$item->name}} </td>
                                     <td> {{number_format($item->stock)}} </td>
-                                    <td> {{number_format($item->sellprice)}} </td>
                                 </tr>
                                 @endforeach
                                 @endif

@@ -21,6 +21,7 @@
                         <h6 class="text-white text-capitalize ps-3">Piutang Plasma</h6>
                     </div>
                     <div class="col-sm-6 text-end">
+                      <a href="{{route('hargaTelur')}}" class="btn btn-success btn-sm mx-2"> Harga Telur </a>
                     </div>
                 </div>
               </div>

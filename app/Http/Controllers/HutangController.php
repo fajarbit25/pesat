@@ -72,4 +72,14 @@ class HutangController extends Controller
         ];
         return view('hutang.buyer-detail', $data);
     }
+
+    public function hargaTelur(): View
+    {
+        $data = [
+            'title'     => 'Harga Telur',
+            'page'      => 'Harga Telur Per Costumer',
+        ];
+        return view('hutang.harga-telur', $data);
+    }
+
 }

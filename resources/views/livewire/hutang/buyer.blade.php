@@ -7,7 +7,9 @@
                         <div class="col-sm-6">
                             <span class="fw-bold">Penjualan Telur</span>
                         </div>
-                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6 text-end">
+                            <a href="{{route('hargaTelur')}}" class="btn btn-success btn-sm mx-2"> Harga Telur </a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body m-0">

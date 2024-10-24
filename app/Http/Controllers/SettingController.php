@@ -65,28 +65,26 @@ class SettingController extends Controller
         $hutangs = HutangPlasma::join('users', 'users.id', '=', 'hutang_plasmas.user_id')
             ->where('users.level', '3')
             ->where('hutang', '!=', 0)
-            ->select('users.id', 'users.name', 'hutang')
+            ->select('hutang_plasmas.id', 'users.id as userid', 'users.name', 'hutang')
             ->get();
 
         $data = []; // Array untuk menyimpan data dari semua hutang
 
         foreach ($hutangs as $hutang) {
-            $penjualan =  EggTrx::where('costumer_id', $hutang->id)
+            $penjualan =  EggTrx::where('costumer_id', $hutang->userid)
                         ->where('tipetrx', 'pakan')
                         ->where('trxtipe', 'penjualan')
                         ->sum('totalprice');
-            $pembelian = EggTrx::where('costumer_id', $hutang->id)
+            $pembelian = EggTrx::where('costumer_id', $hutang->userid)
                             ->where('tipetrx', 'egg')
                             ->where('trxtipe', 'pembelian')
                             ->sum('totalprice');
-            $data[] = [
-                'userid'      => $hutang->id,
-                'name'        => $hutang->name,
-                'hutang'      => number_format($hutang->hutang),
-                'pengambilan' => number_format($penjualan),
-                'pembayaran'  => number_format($pembelian),
-                'hutang_akhir'  => number_format($penjualan-$pembelian),
-            ];
+            $hutangAkhir = $penjualan-$pembelian ?? 0;
+            
+            $hutanPlasma = HutangPlasma::find($hutang->id);
+            $hutanPlasma->update([
+                'hutang'    => $hutangAkhir,
+            ]);
         }
 
         return response()->json($data);

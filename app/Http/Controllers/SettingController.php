@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EggPrice;
 use App\Models\EggTransTemp;
 use App\Models\EggTrx;
+use App\Models\HutangPlasma;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -58,4 +59,37 @@ class SettingController extends Controller
             }
         }
     }
+
+    public function sethutang()
+    {
+        $hutangs = HutangPlasma::join('users', 'users.id', '=', 'hutang_plasmas.user_id')
+            ->where('users.level', '3')
+            ->where('hutang', '!=', 0)
+            ->select('users.id', 'users.name', 'hutang')
+            ->get();
+
+        $data = []; // Array untuk menyimpan data dari semua hutang
+
+        foreach ($hutangs as $hutang) {
+            $penjualan =  EggTrx::where('costumer_id', $hutang->id)
+                        ->where('tipetrx', 'pakan')
+                        ->where('trxtipe', 'penjualan')
+                        ->sum('totalprice');
+            $pembelian = EggTrx::where('costumer_id', $hutang->id)
+                            ->where('tipetrx', 'egg')
+                            ->where('trxtipe', 'pembelian')
+                            ->sum('totalprice');
+            $data[] = [
+                'userid'      => $hutang->id,
+                'name'        => $hutang->name,
+                'hutang'      => number_format($hutang->hutang),
+                'pengambilan' => number_format($penjualan),
+                'pembayaran'  => number_format($pembelian),
+                'hutang_akhir'  => number_format($penjualan-$pembelian),
+            ];
+        }
+
+        return response()->json($data);
+    }
+
 }

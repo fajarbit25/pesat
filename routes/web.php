@@ -88,6 +88,6 @@ Route::get('developers', function (){
 Route::prefix('admin/setting')->middleware('admin')->group(function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('set-price', 'setPrice')->name('setPrice');
-        Route::get('set-categories', 'setCategories')->name('setCategories');
+        Route::get('set-hutang', 'sethutang')->name('sethutang');
     });
 });

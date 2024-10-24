@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EggController;
 use App\Http\Controllers\HutangController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -82,4 +83,11 @@ Route::get('developers', function (){
             'company'   => 'PT. Purnama Sinar Gemilang',
         ]
     ]);
+});
+
+Route::prefix('admin/setting')->middleware('admin')->group(function () {
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('set-price', 'setPrice')->name('setPrice');
+        Route::get('set-categories', 'setCategories')->name('setCategories');
+    });
 });

@@ -58,6 +58,7 @@
                                     <th> NO </th>
                                     <th> TANGGAL </th>
                                     <th> JENIS </th>
+                                    <th> NAMA </th>
                                     <th colspan="2"> KETERANGAN </th>
                                 </tr>
                             </thead>
@@ -68,6 +69,7 @@
                                     <td> <span class="mx-3"> {{$loop->iteration}} </span> </td>
                                     <td> <span class="mx-3"> {{$item->date}} </span> </td>
                                     <td> <span class="mx-3"> {{strtoupper($item->tipe)}} </span> </td>
+                                    <td> <span class="mx-3"> {{$item->name}} </span> </td>
                                     <td> <span class="mx-3"> {{$item->noted}} </span> </td>
                                     <td> 
                                         <a href="javascript:void(0)" wire:click="confirmDelete({{$item->id}})" class="fw-bold text-danger">

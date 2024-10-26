@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group input-group-outline mb-3">
-                                    <input type="text" class="form-control" value="Jumlah : {{number_format($items->sum('amount'))}}" disabled>
+                                    <input type="text" class="form-control" value="Jumlah : Rp.{{number_format($items->sum('amount'))}},-" disabled>
                                 </div>
                             </div>
                         </div>
@@ -59,6 +59,7 @@
                                     <th> TANGGAL </th>
                                     <th> JENIS </th>
                                     <th> NAMA </th>
+                                    <th> JUMLAH </th>
                                     <th colspan="2"> KETERANGAN </th>
                                 </tr>
                             </thead>
@@ -70,6 +71,7 @@
                                     <td> <span class="mx-3"> {{$item->date}} </span> </td>
                                     <td> <span class="mx-3"> {{strtoupper($item->tipe)}} </span> </td>
                                     <td> <span class="mx-3"> {{$item->name}} </span> </td>
+                                    <td> <span class="mx-3 fw-bold"> Rp.{{number_format($item->amount)}},- </span> </td>
                                     <td> <span class="mx-3"> {{$item->noted}} </span> </td>
                                     <td> 
                                         <a href="javascript:void(0)" wire:click="confirmDelete({{$item->id}})" class="fw-bold text-danger">

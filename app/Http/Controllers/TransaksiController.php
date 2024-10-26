@@ -79,4 +79,13 @@ class TransaksiController extends Controller
         ];
         return view('print.invoice', $data);
     }
+
+    public function expense()
+    {
+        $data = [
+            'title'     => 'Expense',
+            'page'      => 'Laporang Pengeluaran',
+        ];
+        return view('transaksi.expense', $data);
+    }
 }

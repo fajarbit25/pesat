@@ -112,13 +112,21 @@
               </div>
               <span class="nav-link-text ms-1">Penjualan Telur</span>
           </a>
-      </li>
+        </li>
         <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">engineering</i>
               </div>
               <span class="nav-link-text ms-1">Upah Buruh</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {{ request()->is('expense*') ? 'active' : '' }}" href="{{route('expense')}}">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">engineering</i>
+              </div>
+              <span class="nav-link-text ms-1">Catatan Operational</span>
           </a>
         </li>
 
@@ -268,6 +276,7 @@
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('hutang*') ? 'active' : '' }}" href="{{route('hutang')}}"> Piutang Costumer </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('buyer*') ? 'active' : '' }}" href="{{route('hutang.buyer')}}"> Penjualan Telur </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('upah*') ? 'active' : '' }}" href="{{route('upahBuruh')}}"> Upah Buruh </a>
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('expense*') ? 'active' : '' }}" href="{{route('expense')}}"> Catatan Operational </a>
         @if(Auth::user()->level == '1')
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('user*') ? 'active' : '' }}" href="{{route('user')}}"> Personal </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('store*') ? 'active' : '' }}" href="{{route('user.store')}}"> Toko </a>

@@ -68,6 +68,7 @@ Route::controller(TransaksiController::class)->group(function() {
     Route::get('inbound', 'inbound')->middleware('staff', 'auth')->name('inbound');
     Route::get('inbound/transaksi', 'transaksi')->middleware('staff', 'auth')->name('inbound.transaksi');
     Route::get('invoice/{id}/print', 'invoicePrint')->name('print.invoice');
+    Route::get('expense', 'expense')->middleware('auth')->name('expense');
 });
 
 Route::get('developers', function (){

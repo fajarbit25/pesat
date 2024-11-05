@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EggTrx;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -80,6 +83,35 @@ class HutangController extends Controller
             'page'      => 'Harga Telur Per Costumer',
         ];
         return view('hutang.harga-telur', $data);
+    }
+
+    public function cetak($id, $month)
+    {
+        $bulan = substr($month, 5, 2);
+        $formattedDate = Carbon::createFromFormat('Y-m', $month);
+
+        $telur = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
+                        ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
+                        ->where('costumer_id', $id)
+                        ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
+                        ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+        $produks = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
+                        ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+                        ->where('costumer_id', $id)
+                        ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
+                        ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+        $data = [
+            'title'     => 'Laporan Bulan '.$formattedDate->translatedFormat('F Y'),
+            'telurs'    => $telur,
+            'produks'   => $produks,
+            'user'      => User::find($id),
+            'bulan'     => $formattedDate->translatedFormat('F Y'),
+        ];
+        return view('print.hutang', $data);
     }
 
 }

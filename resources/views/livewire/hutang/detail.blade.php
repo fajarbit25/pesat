@@ -33,10 +33,15 @@
             </div>
             <div class="card-body pb-2">
               <div class="col-sm-12">
-                <div class="col-sm-4">
+                <div class="row">
+                  <div class="col-sm-4">
                     <div class="input-group input-group-outline">
                       <input type="month" class="form-control mx-2"  wire:model.live="month">
                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript:void(0);" onclick="openPopup('{{ url('hutang/cetak/'.$userid.'/'.$month) }}')" class="btn btn-warning">Cetak</a>
+                  </div>
                 </div>
             </div>
               <div class="row">
@@ -295,6 +300,20 @@
                 element.removeChild(childElement);
             }
         });
+
+        function openPopup(url) {
+            // Membuka window baru dengan ukuran tertentu
+            var popup = window.open(url, 'popup', 'width=800,height=600');
+
+            // Menambahkan event listener untuk menangani kapan tombol print diklik
+            popup.onload = function() {
+                // Menambahkan event print untuk menutup window setelah print
+                popup.document.body.onafterprint = function() {
+                    popup.close();
+                }
+            }
+        }
+
   
     </script>
     @endpush

@@ -16,5 +16,6 @@ class EggTransTemp extends Model
         'total',
         'status',
         'created_at',
+        'cashier_id',
     ];
 }

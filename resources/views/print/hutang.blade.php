@@ -44,8 +44,8 @@
         </div>
         <div class="col-6 mt-3 text-end">
             <span class="fw-bold">TOTAL TRANSAKSI :</span><br/>
-            <span class="fw-bold"> Pengambilan : </span> <span> Rp.{{number_format($telurs->sum('total'))}},- </span><br/>
-            <span class="fw-bold"> Telur Masuk : </span> <span> Rp.{{number_format($produks->sum('total'))}},- </span><br/>
+            <span class="fw-bold"> Pengambilan : </span> <span> Rp.{{number_format($produks->sum('total'))}},- </span><br/>
+            <span class="fw-bold"> Telur Masuk : </span> <span> Rp.{{number_format($telurs->sum('total'))}},- </span><br/>
             <span class="fw-bold"> Sisa Bulan {{$bulan}} : </span> <span> Rp.{{number_format($produks->sum('total')-$telurs->sum('total'))}},- </span><br/>
         </div>
 

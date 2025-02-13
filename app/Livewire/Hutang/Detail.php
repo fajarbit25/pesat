@@ -185,6 +185,8 @@ class Detail extends Component
             ]);
 
 
+
+
         } catch (Exception $e) {
             $this->dispatch('alert', [
                 'title'     => 'Oops',
@@ -227,7 +229,7 @@ class Detail extends Component
             $telur = Medicine::findOrFail($idProduk);
             $stockAwal = $telur->stock;
             $telur->update([
-                'stock' => $telur->stock-$qty,
+                'stock' => $telur->stock+$qty,
             ]);
 
 

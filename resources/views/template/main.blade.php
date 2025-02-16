@@ -71,6 +71,14 @@
         </li>
         @endif
         <li class="nav-item">
+          <a class="nav-link text-white {{ request()->is('laporan/barang*') ? 'active' : '' }}" href="{{route('report.barang')}}">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">add_shopping_cart</i>
+              </div>
+              <span class="nav-link-text ms-1">Laporan Barang</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-white {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">add_shopping_cart</i>
@@ -270,6 +278,7 @@
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('egg*') ? 'active' : '' }} " href="{{route('egg')}}"> Stock Telur </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('report-egg*') ? 'active' : '' }} " href="{{route('egg.laporanTelurMasuk')}}"> Laporan Telur Masuk </a>
         @endif
+        <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('laporan/barang*') ? 'active' : '' }}" href="{{route('report.barang')}}"> Laporan Barang </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('transaksi*') ? 'active' : '' }}" href="{{route('transaksi')}}"> Barang Keluar </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('inbound*') ? 'active' : '' }}" href="{{route('inbound')}}"> Barang Masuk </a>
         <a class="btn bg-gradient-dark px-3 mb-2 {{ request()->is('debt*') ? 'active' : '' }}" href="{{route('debt')}}"> Hutang Supplier </a>

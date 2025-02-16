@@ -70,6 +70,7 @@ Route::controller(TransaksiController::class)->group(function() {
     Route::get('inbound/transaksi', 'transaksi')->middleware('staff', 'auth')->name('inbound.transaksi');
     Route::get('invoice/{id}/print', 'invoicePrint')->name('print.invoice');
     Route::get('expense', 'expense')->middleware('auth')->name('expense');
+    Route::get('laporan/barang', 'laporanBarang')->middleware('auth')->name('report.barang');
 });
 
 Route::get('developers', function (){

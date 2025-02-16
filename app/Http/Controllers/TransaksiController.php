@@ -88,4 +88,13 @@ class TransaksiController extends Controller
         ];
         return view('transaksi.expense', $data);
     }
+
+    public function laporanBarang()
+    {
+        $data = [
+            'title'     => 'Report',
+            'page'      => 'Laporang Barang',
+        ];
+        return view('transaksi.laporan-barang', $data);
+    }
 }

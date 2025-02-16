@@ -16,8 +16,11 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="input-group input-group-outline mb-3">
-                                <input type="month" class="form-control" wire:model="bulan">
+                                    <input type="month" class="form-control" wire:model="bulan">
                                 </div>
+                                @error('bulan')
+                                <div class="form text text-danger"> <span class="fw-bold">Bulan harus diisi!</span> </div>
+                                @enderror
                             </div>
 
                             <div class="col-sm-3">

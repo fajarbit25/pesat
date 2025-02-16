@@ -56,6 +56,9 @@ class LaporanBarang extends Component
 
     public function loadReport()
     {
+        $this->validate([
+            'bulan'     => 'required',
+        ]);
         $this->getItems();
     }
 }

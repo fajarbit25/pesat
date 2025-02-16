@@ -17,6 +17,8 @@ class Inbound extends Component
     private $items;
     public $dataTrx;
     public $idtransaksi;
+    public $bulan;
+    
 
     public function render()
     {
@@ -28,10 +30,20 @@ class Inbound extends Component
 
     public function getItems()
     {
-        $this->items = EggTrx::join('users', 'users.id', '=', 'egg_trxes.costumer_id')
-                    ->where('tipetrx', '!=', 'egg')->where('trxtipe', 'pembelian')
-                    ->select('egg_trxes.*', 'users.name')
-                    ->orderBy('egg_trxes.created_at', 'DESC')->paginate(10);
+        $query = EggTrx::join('users', 'users.id', '=', 'egg_trxes.costumer_id')
+            ->select('egg_trxes.*', 'users.name')
+            ->where('egg_trxes.tipetrx', '!=', 'egg')
+            ->where('egg_trxes.trxtipe', 'pembelian');
+
+        if ($this->bulan) {
+            list($year, $month) = explode('-', $this->bulan);
+            
+            $query->whereMonth('egg_trxes.created_at', $month)
+                    ->whereYear('egg_trxes.created_at', $year);
+        }
+
+        $this->items = $query->orderBy('egg_trxes.created_at', 'DESC')->paginate(10);
+
     }
     
     public function modalDetail($id)

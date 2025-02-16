@@ -14,6 +14,34 @@
                     </div>
                 </div>
                 <div class="card-body m-0">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-outline mb-3">
+                                <input type="month" class="form-control" wire:model.live="bulan">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group input-group-outline mb-3">
+                                <input type="text" class="form-control" value="{{number_format($items->count())}} Transaksi" disabled>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group input-group-outline mb-3">
+                                <input type="text" class="form-control" value="Disc - Rp.{{number_format($items->sum('disc'))}},-" disabled>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group input-group-outline mb-3">
+                                <input type="text" class="form-control" value="Total : Rp.{{number_format($items->sum('totalprice'))}},-" disabled>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
                     @session('success')
                     <div class="col-sm-12">
                         <div class="alert alert-success alert-dismissible text-white" role="alert">

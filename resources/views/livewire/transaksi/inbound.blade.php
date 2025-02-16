@@ -23,11 +23,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-2">
-                                <div class="input-group input-group-outline mb-3">
-                                <input type="text" class="form-control" value="{{number_format($items->count())}} Transaksi" disabled>
-                                </div>
-                            </div>
                             <div class="col-sm-3">
                                 <div class="input-group input-group-outline mb-3">
                                 <input type="text" class="form-control" value="Disc - Rp.{{number_format($items->sum('disc'))}},-" disabled>

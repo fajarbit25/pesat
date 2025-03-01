@@ -24,42 +24,61 @@
                     </div>
                     @endsession
                     <div class="table-responsive">
-                        <table class="table" style="font-size: 12px;">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="input-group input-group-outline mb-3">
+                                        <input type="date" class="form-control" wire:model="start">
+                                    </div>
+                                    @error('start')
+                                    <div class="form text text-danger"> <span class="fw-bold">Tanggal mulai harus diisi!</span> </div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group input-group-outline mb-3">
+                                        <input type="date" class="form-control" wire:model="end">
+                                    </div>
+                                    @error('end')
+                                    <div class="form text text-danger"> <span class="fw-bold">Tanggal sampai harus diisi!</span> </div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-primary" wire:click="reloadData()">Filter Data</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered" style="font-size: 12px;">
                             <thead>
-                                <tr>
+                                <tr class="bg-light">
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <th>Kode Transaksi</th>
-                                    <th>Penerima</th>
+                                    <th>Costumer</th>
+                                    <th>Nama Barang</th>
                                     <th>Harga</th>
-                                    <th>Discount</th>
-                                    <th>Total Harga</th>
-                                    <td></td>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($items)
                                 @foreach($items as $item)
                                 <tr>
-                                    <td> {{$loop->iteration}} </td>
+                                    <td class="mx-2"> {{$loop->iteration}} </td>
                                     <td> {{substr($item->created_at, 0, 10)}} </td>
-                                    <td>
-                                        <a href="javascript:void(0)" wire:click="modalDetail({{$item->idtransaksi}})" class="text-primary fw-bold">
-                                        {{$item->idtransaksi}}
-                                        </a>
-                                    </td>
+                                    <td> {{$item->costumer}} </td>
                                     <td> {{$item->name}} </td>
-                                    <td> {{number_format($item->totalprice+$item->disc)}} </td>
-                                    <td> {{number_format($item->disc)}} </td>
-                                    <td> <span class="fw-bold">{{number_format($item->totalprice)}}</span> </td>
-                                    <td>
-                                        <a href="javascript:void(0);" class="text-warning fw-bold" onclick="openPopup('/invoice/{{$item->idtransaksi}}/print')"> cetak </a>
-                                    </td>
+                                    <td> {{number_format($item->price)}} </td>
+                                    <td> {{number_format($item->qty)}} </td>
+                                    <td> <span class="fw-bold">{{number_format($item->total)}}</span> </td>
                                 </tr>
                                 @endforeach
+                                <tr class="bg-light">
+                                    <th colspan="6"> Total Transaksi </th>
+                                    <th> {{number_format($items->sum('total'))}} </th>
+                                </tr>
                                 @endif
                                 <tr>
-                                    <td colspan="7">  {{$items->links()}} </td>
+                                    <td colspan="6">  {{$items->links()}} </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,7 +90,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -113,7 +132,7 @@
             </div>
         </div>
         </div>
-    </div>
+    </div> --}}
 
     @push('scripts')
     <script>

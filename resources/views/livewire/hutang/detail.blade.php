@@ -135,6 +135,8 @@
                   </table>
                 </div>
 
+                <div class="col-sm-12 mb-3"></div>
+
                 @php
                     $totalPengambilan = $produk->sum('total');
                     $totalTelur = $items->sum('total');
@@ -142,8 +144,8 @@
 
                 <div class="col-sm-12">
                   <table class="table table-bordered" style="font-size:12px;">
-                    <tr>
-                      <td></td>
+                    <tr class="bg-light">
+                      <th class="text-primary">Transaksi Bulan Ini</th>
                       <th>Jumlah</th>
                       <th>Disc</th>
                       <th class="text-end">Total</th>

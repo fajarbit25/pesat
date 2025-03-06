@@ -123,7 +123,7 @@
                           {{number_format($item->total)}}
                         </td>
                         <td> 
-                          <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> 
+                          <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtrx}}')" class="fw-bold text-danger">Hapus</a> 
                         </td>
                       </tr>
                       @endforeach

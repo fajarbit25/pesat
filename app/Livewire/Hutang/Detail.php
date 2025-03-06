@@ -81,7 +81,8 @@ class Detail extends Component
                         ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $month)
                         ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc', 'egg_trans_temps.id as idtrx')
+                        ->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function modalDetailEgg($id)
@@ -208,41 +209,36 @@ class Detail extends Component
 
     public function destroyProduk()
     {
-        $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
-                ->where('egg_trans_temps.trx_id', $this->idDeleteProduct)
-                ->select('trx_id', 'medicines.name', 'medicines.code', 'qty', 'egg_trans_temps.price', 'total', 'egg_id')
-                ->first();
-        $idProduk = $data->egg_id;
-        $qty = $data->qty;
-        $totalTrx = $data->total;
 
         try {
 
-            //update Trx
-            $trx = EggTrx::where('idtransaksi', $this->idDeleteProduct)->first();
-            $trxTotalAwal = $trx->totalprice;
-            $userid = $trx->costumer_id;
+            $data = EggTransTemp::findOrFail($this->idDeleteProduct);
 
+
+            //update Trx
+            $trx = EggTrx::where('idtransaksi', $data->trx_id)->first();
+            $trxTotalAwal = $trx->totalprice; //ambil total price
+            $userid = $trx->costumer_id; // ambil costumer id
+
+            //update harga total proce
             EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
-                'totalprice'    => $trxTotalAwal-$totalTrx,
+                'totalprice'    => $trxTotalAwal - $data->total,
             ]);
 
             //update stock;
-            $telurTelurData = Medicine::where('id', $idProduk)->first();
-            $stockAwal = $telurTelurData->stock;
-
-            Medicine::where('id', $idProduk)->update([
-                'stock' => $stockAwal+$qty,
+            $produk = Medicine::where('id', $data->egg_id)->first();
+            $stockAwal = $produk->stock;
+            Medicine::where('id', $produk->id)->update([
+                'stock' => $stockAwal+$data->qty,
             ]);
-
 
             //insert Mutasi produk
             EggMutasi::create([
-                'egg_id'        => $idProduk,
+                'egg_id'        => $produk->id,
                 'supplier_id'   => Auth::user()->id, 
-                'qty'           => -$qty,
+                'qty'           => -$data->qty,
                 'stockawal'     => $stockAwal,
-                'atockakhir'    => $stockAwal-$qty,
+                'atockakhir'    => $stockAwal+$data->qty,
                 'date'          => date('Y-m-d'),
                 'user_id'       => Auth::user()->id,
             ]);
@@ -252,12 +248,11 @@ class Detail extends Component
             $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();
             $hutang = HutangPlasma::findOrFail($hutangPlasma->id);
             $hutang->update([
-                'hutang'    => $hutangPlasma->hutang-$penambahanhutang,
+                'hutang'    => $hutangPlasma->hutang-$data->total,
             ]);
 
             //delete transtemp
-            EggTransTemp::where('trx_id', $this->idDeleteProduct)->delete();
-            EggTrx::where('idtransaksi', $this->idDeleteProduct)->delete();
+            EggTransTemp::where('id', $data->id)->delete();
 
             $this->reset('idDeleteProduct');
 
@@ -268,7 +263,7 @@ class Detail extends Component
             ]);
 
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dispatch('alert', [
                 'title'     => 'Oops',

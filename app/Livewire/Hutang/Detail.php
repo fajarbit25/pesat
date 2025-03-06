@@ -228,11 +228,10 @@ class Detail extends Component
             ]);
 
             //update stock;
-            $telurTelurData = Medicine::findOrFail($idProduk);
+            $telurTelurData = Medicine::where('id', $idProduk)->first();
             $stockAwal = $telurTelurData->stock;
 
-            $telur = Medicine::findOrFail($idProduk);
-            $telur->update([
+            Medicine::where('id', $idProduk)->update([
                 'stock' => $telurTelurData->stock+$qty,
             ]);
 

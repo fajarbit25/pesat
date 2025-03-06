@@ -63,7 +63,7 @@
                                 @if($items)
                                 @foreach($items as $item)
                                 <tr>
-                                    <td class="mx-2"> {{$loop->iteration}} </td>
+                                    <td> {{$loop->iteration}} </td>
                                     <td> {{substr($item->created_at, 0, 10)}} </td>
                                     <td> {{$item->costumer}} </td>
                                     <td> {{$item->name}} </td>

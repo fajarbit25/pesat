@@ -85,7 +85,7 @@ class Data extends Component
         $medic = ModelMedicine::where('cat', $this->cat)->count();
         $cat = MedicCat::findOrFail($this->cat);
         $catcode = $cat->code;
-        $catNumber = $medic+1001;
+        $catNumber = $medic+2501;
         $code = $catcode.$catNumber;
 
         try {

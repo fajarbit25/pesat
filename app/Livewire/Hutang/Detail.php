@@ -226,10 +226,10 @@ class Detail extends Component
             ]);
 
             //update stock;
-            $produk = Medicine::where('id', $data->egg_id)->first();
+            $produk = Medicine::findOrFail($data->egg_id);
             $stockAwal = $produk->stock;
             Medicine::where('id', $produk->id)->update([
-                'stock' => $stockAwal+$data->qty,
+                'stock' => $stockAwal + $data->qty,
             ]);
 
             //insert Mutasi produk
@@ -244,7 +244,6 @@ class Detail extends Component
             ]);
 
             //upate hutang costumer
-            $penambahanhutang = $trxTotalAwal;
             $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();
             $hutang = HutangPlasma::findOrFail($hutangPlasma->id);
             $hutang->update([

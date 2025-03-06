@@ -232,7 +232,7 @@ class Detail extends Component
             $stockAwal = $telurTelurData->stock;
 
             Medicine::where('id', $idProduk)->update([
-                'stock' => $telurTelurData->stock+$qty,
+                'stock' => $stockAwal+$qty,
             ]);
 
 

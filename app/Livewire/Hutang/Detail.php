@@ -267,7 +267,7 @@ class Detail extends Component
 
             $this->dispatch('alert', [
                 'title'     => 'Oops',
-                'message'   => 'Terjadi kesalahan',
+                'message'   => 'Terjadi kesalahan'. $data->egg_id,
                 'icon'      => 'error',
                 'error'     => $e->getMessage(),
             ]);

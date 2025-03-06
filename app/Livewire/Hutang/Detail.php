@@ -222,16 +222,18 @@ class Detail extends Component
             $trx = EggTrx::where('idtransaksi', $this->idDeleteProduct)->first();
             $trxTotalAwal = $trx->totalprice;
             $userid = $trx->costumer_id;
-            
+
             EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
                 'totalprice'    => $trxTotalAwal-$totalTrx,
             ]);
 
             //update stock;
+            $telurTelurData = Medicine::findOrFail($idProduk);
+            $stockAwal = $telurTelurData->stock;
+
             $telur = Medicine::findOrFail($idProduk);
-            $stockAwal = $telur->stock;
             $telur->update([
-                'stock' => $telur->stock+$qty,
+                'stock' => $telurTelurData->stock+$qty,
             ]);
 
 
@@ -268,12 +270,14 @@ class Detail extends Component
 
 
         } catch (Exception $e) {
+
             $this->dispatch('alert', [
                 'title'     => 'Oops',
                 'message'   => 'Terjadi kesalahan',
                 'icon'      => 'error',
                 'error'     => $e->getMessage(),
             ]);
+
         }
 
 

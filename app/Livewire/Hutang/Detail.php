@@ -222,9 +222,10 @@ class Detail extends Component
             $trx = EggTrx::where('idtransaksi', $this->idDeleteProduct)->first();
             $trxTotalAwal = $trx->totalprice;
             $userid = $trx->costumer_id;
-            // EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
-            //     'totalprice'    => $trxTotalAwal-$totalTrx,
-            // ]);
+            
+            EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
+                'totalprice'    => $trxTotalAwal-$totalTrx,
+            ]);
 
             //update stock;
             $telur = Medicine::findOrFail($idProduk);

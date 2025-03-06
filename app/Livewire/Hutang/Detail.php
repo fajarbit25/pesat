@@ -212,7 +212,7 @@ class Detail extends Component
 
         try {
 
-            $data = EggTransTemp::find($this->idDeleteProduct);
+            $data = EggTransTemp::where('id', $this->idDeleteProduct)->first();
 
             //update Trx
             $trx = EggTrx::where('idtransaksi', $data->trx_id)->first();
@@ -220,12 +220,12 @@ class Detail extends Component
             $userid = $trx->costumer_id; // ambil costumer id
 
             //update harga total proce
-            EggTrx::where('idtransaksi', $this->idDeleteProduct)->update([
+            EggTrx::where('idtransaksi', $data->trx_id)->update([
                 'totalprice'    => $trxTotalAwal - $data->total,
             ]);
 
             //update stock;
-            $produk = Medicine::find($data->egg_id);
+            $produk = Medicine::where('id', $data->egg_id)->first();
             $stockAwal = $produk->stock;
 
             Medicine::where('id', $produk->id)

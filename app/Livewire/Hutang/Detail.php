@@ -212,8 +212,7 @@ class Detail extends Component
 
         try {
 
-            $data = EggTransTemp::findOrFail($this->idDeleteProduct);
-
+            $data = EggTransTemp::find($this->idDeleteProduct);
 
             //update Trx
             $trx = EggTrx::where('idtransaksi', $data->trx_id)->first();
@@ -226,9 +225,11 @@ class Detail extends Component
             ]);
 
             //update stock;
-            $produk = Medicine::findOrFail($data->egg_id);
+            $produk = Medicine::find($data->egg_id);
             $stockAwal = $produk->stock;
-            Medicine::where('id', $produk->id)->update([
+
+            Medicine::where('id', $produk->id)
+            ->update([
                 'stock' => $stockAwal + $data->qty,
             ]);
 

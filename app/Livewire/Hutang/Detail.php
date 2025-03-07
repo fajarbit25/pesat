@@ -225,7 +225,6 @@ class Detail extends Component
             ]);
 
             //update stock;
-            
             $produk = Medicine::where('id', $data->egg_id)->first();
             if ($produk) {
                 $stockAwal = $produk->stock;
@@ -234,19 +233,19 @@ class Detail extends Component
                 ->update([
                     'stock' => $stockAwal + $data->qty,
                 ]);
+
+                //insert Mutasi produk
+                EggMutasi::create([
+                    'egg_id'        => $produk->id,
+                    'supplier_id'   => Auth::user()->id, 
+                    'qty'           => -$data->qty,
+                    'stockawal'     => $stockAwal,
+                    'atockakhir'    => $stockAwal+$data->qty,
+                    'date'          => date('Y-m-d'),
+                    'user_id'       => Auth::user()->id,
+                ]);
             }
             
-
-            //insert Mutasi produk
-            EggMutasi::create([
-                'egg_id'        => $produk->id,
-                'supplier_id'   => Auth::user()->id, 
-                'qty'           => -$data->qty,
-                'stockawal'     => $stockAwal,
-                'atockakhir'    => $stockAwal+$data->qty,
-                'date'          => date('Y-m-d'),
-                'user_id'       => Auth::user()->id,
-            ]);
 
             //upate hutang costumer
             $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();

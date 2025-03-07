@@ -225,13 +225,17 @@ class Detail extends Component
             ]);
 
             //update stock;
+            
             $produk = Medicine::where('id', $data->egg_id)->first();
-            $stockAwal = $produk->stock;
-
-            Medicine::where('id', $produk->id)
-            ->update([
-                'stock' => $stockAwal + $data->qty,
-            ]);
+            if ($produk) {
+                $stockAwal = $produk->stock;
+ 
+                Medicine::where('id', $produk->id)
+                ->update([
+                    'stock' => $stockAwal + $data->qty,
+                ]);
+            }
+            
 
             //insert Mutasi produk
             EggMutasi::create([

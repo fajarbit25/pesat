@@ -100,7 +100,9 @@ class HutangController extends Controller
         $produks = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $id)
-                        ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
+                        ->where('trxtipe', 'penjualan')
+                        ->where('tipetrx', '!=', 'egg')
+                        ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $bulan)
                         ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();

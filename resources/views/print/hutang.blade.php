@@ -109,7 +109,7 @@
             <br/><br/><br/>
             <h5 class="fw-bold">
                 TERIMA KASIH ATAS <br/>
-                PEMBELIAN ANDA
+                PEMBELIAN ANDAxx
             </h5>
         </div>
         <div class="col-6 mt-5 text-center">

@@ -37,6 +37,7 @@
                                     <th class="m-0">Edit</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @if($items)
                                 @foreach($items as $item)
@@ -48,14 +49,14 @@
                                         @if($item->id == $userid)
                                             <input type="text" class="mx-3" wire:model="big">
                                         @else
-                                        <span class="mx-3"> {{number_format($item->big)}} </span>
+                                        <span class="mx-3"> {{$item->big}} </span>
                                         @endif 
                                     </td>
                                     <td>
                                         @if($item->id == $userid)
                                             <input type="text" class="mx-3" wire:model="small">
                                         @else 
-                                        <span class="mx-3"> {{number_format($item->small)}} </span> 
+                                        <span class="mx-3"> {{$item->small}} </span> 
                                         @endif
                                     </td>
                                     <td> 

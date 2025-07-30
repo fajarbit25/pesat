@@ -21,7 +21,6 @@ class HargaTelur extends Component
 
     private $items;
 
-
     public function render()
     {
         $this->getItems();

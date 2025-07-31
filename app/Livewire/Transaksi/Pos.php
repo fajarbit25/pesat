@@ -54,7 +54,8 @@ class Pos extends Component
     public function getItems()
     {
         $this->items = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
-                        ->where('status', 'active')->where('cashier_id', Auth::user()->id)
+                        ->where('status', 'active')
+                        ->where('cashier_id', Auth::user()->id)
                         ->select('egg_trans_temps.id', 'name', 'qty', 'egg_trans_temps.price', 'total', 'code')
                         ->get();
     }
@@ -117,7 +118,9 @@ class Pos extends Component
                 'status'        => 'active',
                 'cashier_id'    => Auth::user()->id
             ]);
+
             $this->dispatch('closeModal');
+
         } catch (Exception $e) {
             $this->dispatch('alert', [
                 'title'     => 'Oops',

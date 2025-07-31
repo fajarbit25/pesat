@@ -47,7 +47,7 @@
                 </div>
             </div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                   <span class="fw-bold">Telur  Masuk</span>
                   <table class="table table-bordered" style="font-size:12px;">
                     <thead>
@@ -90,7 +90,7 @@
                   </table>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                   <span class="fw-bold">Pengambilan Barang</span>
                   <table class="table table-bordered" style="font-size:12px;">
                     <thead>

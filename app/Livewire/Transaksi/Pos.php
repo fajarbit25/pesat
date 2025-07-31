@@ -150,13 +150,15 @@ class Pos extends Component
 
     public function getSumTx()
     {
-        $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
-        ->join('egg_trxes', 'egg_trxes.idtransaksi', '=', 'egg_trans_temps.trx_id')
-        ->where('status', 'active')
-        ->where('cashier_id', Auth::user()->id)
-        ->where('egg_trxes.costumer_id', $this->idPelanggan)
-        ->sum('total');
-        $this->sumTx = $data ?? 0;
+        // $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+        // ->join('egg_trxes', 'egg_trxes.idtransaksi', '=', 'egg_trans_temps.trx_id')
+        // ->where('status', 'active')
+        // ->where('cashier_id', Auth::user()->id)
+        // ->where('egg_trxes.costumer_id', $this->idPelanggan)
+        // ->sum('total');
+        // $this->sumTx = $data ?? 0;
+        $total = $this->items;
+        $this->sumTx = $total->sum('total') ?? 0;
     }
 
     public function deleteTemp($id)

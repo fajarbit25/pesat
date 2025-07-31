@@ -36,6 +36,10 @@
               json_encode($items)
             }}
 
+            {{
+              dd($items)
+            }}
+
             <div class="card-body pb-2">
               <div class="col-sm-12">
                 <div class="row">

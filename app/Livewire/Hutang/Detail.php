@@ -60,7 +60,6 @@ class Detail extends Component
     public function getItems()
     {
         $month = substr($this->month, 5, 2);
-
         $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                         ->where('costumer_id', $this->userid)

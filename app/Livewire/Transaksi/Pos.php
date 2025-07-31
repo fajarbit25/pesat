@@ -154,7 +154,7 @@ class Pos extends Component
         ->join('egg_trxes', 'egg_trxes.idtransaksi', '=', 'egg_trans_temps.trx_id')
         ->where('status', 'active')
         ->where('cashier_id', Auth::user()->id)
-        ->where('costumer_id.', $this->idPelanggan)
+        ->where('egg_trxes.costumer_id', $this->idPelanggan)
         ->sum('total');
         $this->sumTx = $data ?? 0;
     }

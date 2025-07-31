@@ -218,41 +218,6 @@ class Detail extends Component
             $trxTotalAwal = $trx->totalprice; //ambil total price
             $userid = $trx->costumer_id; // ambil costumer id
 
-            //update harga total proce
-            EggTrx::where('idtransaksi', $data->trx_id)->update([
-                'totalprice'    => $trxTotalAwal - $data->total,
-            ]);
-
-            //update stock;
-            $produk = Medicine::where('id', $data->egg_id)->first();
-            if ($produk) {
-                $stockAwal = $produk->stock;
- 
-                Medicine::where('id', $produk->id)
-                ->update([
-                    'stock' => $stockAwal + $data->qty,
-                ]);
-
-                //insert Mutasi produk
-                EggMutasi::create([
-                    'egg_id'        => $produk->id,
-                    'supplier_id'   => Auth::user()->id, 
-                    'qty'           => -$data->qty,
-                    'stockawal'     => $stockAwal,
-                    'atockakhir'    => $stockAwal+$data->qty,
-                    'date'          => date('Y-m-d'),
-                    'user_id'       => Auth::user()->id,
-                ]);
-            }
-            
-
-            //upate hutang costumer
-            $hutangPlasma = HutangPlasma::where('user_id', $userid)->first();
-            $hutang = HutangPlasma::findOrFail($hutangPlasma->id);
-            $hutang->update([
-                'hutang'    => $hutangPlasma->hutang-$data->total,
-            ]);
-
             //delete transtemp
             EggTransTemp::where('id', $data->id)->delete();
 

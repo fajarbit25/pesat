@@ -151,6 +151,7 @@ class Pos extends Component
     public function getSumTx()
     {
         $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+        ->join('egg_trxes', 'egg_trxes.idtransaksi', '=', 'egg_trans_temps.trx_id')
         ->where('status', 'active')
         ->where('cashier_id', Auth::user()->id)
         ->where('costumer_id.', $this->idPelanggan)

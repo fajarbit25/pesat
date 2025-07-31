@@ -32,13 +32,6 @@
               </div>
             </div>
 
-            {{
-              json_encode($items)
-            }}
-
-            {{
-              dd($items)
-            }}
 
             <div class="card-body pb-2">
               <div class="col-sm-12">
@@ -147,8 +140,8 @@
                 <div class="col-sm-12 mb-3"></div>
 
                 @php
-                    $totalPengambilan = $produk->sum('total');
-                    $totalTelur = $items->sum('total');
+                    $totalPengambilan = $produk->sum('total') ?? 0;
+                    $totalTelur = $items->sum('total') ?? 0;
                 @endphp
 
                 <div class="col-sm-12">

@@ -33,7 +33,7 @@
             </div>
 
             {{
-              dd($items)
+              json_encode($items)
             }}
 
             <div class="card-body pb-2">

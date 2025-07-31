@@ -109,7 +109,7 @@
                         <td> {{substr($item->tanggal, 0, 10)}} </td>
                         <td> {{$item->name}} </td>
                         <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->qty)}} @endif </td>
-                        <td>@if($item->name == "PELUNASAN") - @else {{number_format($item->price)}} @endif </td>
+                        <td>@if($item->name == "PELUNASAN") - @else {{$item->price}} @endif </td>
                         <td>
                           @foreach($produk->groupBy('idtransaksi') as $idtrx => $produks)
                             @if($idtrx == $item->idtransaksi)

@@ -140,11 +140,9 @@
                 <div class="col-sm-12 mb-3"></div>
 
                 @php
-                    // $totalPengambilan = $produk->sum('total') ?? 0;
-                    // $totalTelur = $items->sum('total') ?? 0;
+                    $totalPengambilan = $produk->sum('total') ?? 0;
+                    $totalTelur = $items->sum('total') ?? 0;
 
-                    $totalPengambilan = 1111;
-                    $totalTelur = 1111;
                 @endphp
 
                 <div class="col-sm-12">

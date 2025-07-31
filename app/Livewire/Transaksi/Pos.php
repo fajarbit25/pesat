@@ -150,7 +150,11 @@ class Pos extends Component
 
     public function getSumTx()
     {
-        $data = EggTransTemp::where('status', 'active')->sum('total');
+        $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+        ->where('status', 'active')
+        ->where('cashier_id', Auth::user()->id)
+        ->where('costumer_id.', $this->idPelanggan)
+        ->sum('total');
         $this->sumTx = $data ?? 0;
     }
 

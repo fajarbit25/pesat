@@ -62,11 +62,12 @@ class Detail extends Component
         $month = substr($this->month, 5, 2);
         $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
+                        ->join('users', 'users.id', '=', 'egg_trans_temps.cashier_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $month)
                         ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc', 'users.name as username')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 
     public function getProduk()
@@ -75,12 +76,13 @@ class Detail extends Component
 
         $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
+                        ->join('users', 'users.id', '=', 'egg_trans_temps.cashier_id')
                         ->where('costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
                         ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $month)
                         ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
-                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc', 'egg_trans_temps.id as idtrx')
+                        'egg_trans_temps.price', 'egg_trans_temps.total', 'disc', 'egg_trans_temps.id as idtrx', 'users.name as username')
                         ->orderBy('egg_trans_temps.created_at', 'ASC')->get();
     }
 

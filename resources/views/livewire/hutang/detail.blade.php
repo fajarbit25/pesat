@@ -59,6 +59,7 @@
                         <th>Harga</th>
                         <th>Disc</th>
                         <th>Total</th>
+                        <th>Admin</th>
                         <th>Hapus</th>
                       </tr>
                     </thead>
@@ -78,6 +79,7 @@
                             {{number_format($item->total)}}
                           @endif
                         </td>
+                        <td> {{$item->username}} </td>
                         <td> 
                           <a href="javascript:void(0)" wire:click="confirmDeleteTelur('{{$item->idtransaksi}}')" class="fw-bold text-danger">Hapus</a> 
                         </td>
@@ -102,6 +104,7 @@
                         <th>Harga</th>
                         <th>Disc</th>
                         <th>Total</th>
+                        <th>Admin</th>
                         <th>Hapus</th>
                       </tr>
                     </thead>
@@ -125,6 +128,7 @@
                         <td> 
                           {{$item->total}}
                         </td>
+                        <td> {{$item->username}} </td>
                         <td> 
                           <a href="javascript:void(0)" wire:click="confirmDeleteProduk('{{$item->idtrx}}')" class="fw-bold text-danger">Hapus</a> 
                         </td>

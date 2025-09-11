@@ -201,6 +201,9 @@ class Pos extends Component
 
                 //update status temp
                 EggTransTemp::where('status', 'active')
+                    ->where('cashier_id', Auth::user()->id)
+                    ->where('tipe_trx_temp', 'product')
+                    ->where('in_out', 'out')
                     ->update([
                         'trx_id'        => $trx->idtransaksi,
                         'status'        => 'inactive',
@@ -249,7 +252,7 @@ class Pos extends Component
             } catch (Exception $e) {
                 $this->dispatch('alert', [
                     'title'     => 'Oops',
-                    'message'   => 'Gagal Proses Gagal, Periksa Mutasi anda',
+                    'message'   => 'Gagal Proses Gagal, Periksa Mutasi anda '.$e->getMessage(),
                     'icon'      => 'error',
                     'error'     => $e->getMessage(),
                 ]);

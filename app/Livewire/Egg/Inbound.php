@@ -80,6 +80,7 @@ class Inbound extends Component
                     ->where('status', 'active')
                     ->where('tipe_trx_temp', 'egg')
                     ->where('in_out', 'in')
+                    ->where('cashier_id', Auth::user()->id)
                     ->select('egg_trans_temps.id', 'name', 'qty', 'price', 'total', 'code')
                     ->get();
         $this->items = $data;
@@ -87,7 +88,11 @@ class Inbound extends Component
 
     public function getSumTx()
     {
-        $data = EggTransTemp::where('status', 'active')->sum('total');
+        $data = EggTransTemp::where('status', 'active')
+        ->where('tipe_trx_temp', 'egg')
+        ->where('in_out', 'in')
+        ->where('cashier_id', Auth::user()->id)
+        ->sum('total');
         $this->sumTx = $data ?? 0;
     }
 

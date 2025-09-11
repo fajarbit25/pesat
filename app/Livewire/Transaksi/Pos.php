@@ -56,6 +56,8 @@ class Pos extends Component
         $this->items = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('status', 'active')
                         ->where('cashier_id', Auth::user()->id)
+                        ->where('tipe_trx_temp', 'product')
+                        ->where('in_out', 'out')
                         ->select('egg_trans_temps.id', 'name', 'qty', 'egg_trans_temps.price', 'total', 'code')
                         ->get();
     }
@@ -116,7 +118,9 @@ class Pos extends Component
                 'price'         => $product->sellingprice,
                 'total'         => $product->sellingprice,
                 'status'        => 'active',
-                'cashier_id'    => Auth::user()->id
+                'cashier_id'    => Auth::user()->id,
+                'tipe_trx_temp' => 'product',
+                'in_out'        => 'out',
             ]);
 
             $this->dispatch('closeModal');

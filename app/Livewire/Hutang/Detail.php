@@ -63,7 +63,7 @@ class Detail extends Component
         $this->items = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                         ->join('users', 'users.id', '=', 'egg_trans_temps.cashier_id')
-                        ->where('costumer_id', $this->userid)
+                        ->where('egg_trxes.costumer_id', $this->userid)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $month)
                         ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
@@ -77,7 +77,7 @@ class Detail extends Component
         $this->produk = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                         ->join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->join('users', 'users.id', '=', 'egg_trans_temps.cashier_id')
-                        ->where('costumer_id', $this->userid)
+                        ->where('egg_trxes.costumer_id', $this->userid)
                         ->where('trxtipe', 'penjualan')->where('tipetrx', '!=', 'egg')
                         ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $month)

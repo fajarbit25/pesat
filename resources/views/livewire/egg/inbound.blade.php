@@ -44,7 +44,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <span class="fw-bold">Table Penjualan</span>
+                    <span class="fw-bold">Table Penjualan.</span>
                 </div>
                 <div class="card-body">
                     <div class="row">

@@ -78,7 +78,7 @@ class Inbound extends Component
     {
         $data = EggTransTemp::join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                     ->where('status', 'active')
-                    ->where('tipe_trx_temp', 'product')
+                    ->where('tipe_trx_temp', 'egg')
                     ->where('in_out', 'in')
                     ->select('egg_trans_temps.id', 'name', 'qty', 'price', 'total', 'code')
                     ->get();
@@ -199,8 +199,8 @@ class Inbound extends Component
                 'total'         => $price,
                 'status'        => 'active',
                 'cashier_id'    => Auth::user()->id,
-                'tipe_trx_temp' => 'product',
-                'in_out'        => 'out',
+                'tipe_trx_temp' => 'egg',
+                'in_out'        => 'in',
             ]);
             $this->dispatch('closeModal');
         } catch (Exception $e) {

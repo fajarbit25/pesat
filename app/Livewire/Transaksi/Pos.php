@@ -128,7 +128,7 @@ class Pos extends Component
         } catch (Exception $e) {
             $this->dispatch('alert', [
                 'title'     => 'Oops',
-                'message'   => 'Gagal menambahkan item',
+                'message'   => 'Gagal menambahkan item '.$e->getMessage(),
                 'icon'      => 'error', 
             ]);
         }

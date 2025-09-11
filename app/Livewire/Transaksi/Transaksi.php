@@ -51,7 +51,7 @@ class Transaksi extends Component
                         ->where('status', 'active')
                         ->where('cashier_id', Auth::user()->id)
                         ->where('tipe_trx_temp', 'egg')
-                        ->where('in_out', 'out')
+                        ->where('in_out', 'in')
                         ->select('egg_trans_temps.id', 'name', 'qty', 'egg_trans_temps.price', 'total', 'code')
                         ->get();
     }
@@ -89,7 +89,7 @@ class Transaksi extends Component
                 'status'        => 'active',
                 'cashier_id'    => Auth::user()->id,
                 'tipe_trx_temp' => 'egg',
-                'in_out'        => 'out',
+                'in_out'        => 'in',
             ]);
             $this->dispatch('closeModal');
         } catch (Exception $e) {

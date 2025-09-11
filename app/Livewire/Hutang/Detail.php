@@ -205,7 +205,7 @@ class Detail extends Component
         $this->idDeleteProduct = $id;
         $this->dispatch('confirmDeleteProduk');
     }
-
+    
     public function destroyProduk()
     {
 

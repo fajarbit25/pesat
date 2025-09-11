@@ -42,7 +42,8 @@
                     </div>
                   </div>
                   <div class="col-sm-3">
-                    <a href="javascript:void(0);" onclick="openPopup('{{ url('hutang/cetak/'.$userid.'/'.$month) }}')" class="btn btn-warning">Cetak</a>
+                    <a href="javascript:void(0);" onclick="openPopup('{{ url('hutang/cetak-telur/'.$userid.'/'.$month) }}')" class="btn btn-warning">Cetak Telur</a>
+                    <a href="javascript:void(0);" onclick="openPopup('{{ url('hutang/cetak/'.$userid.'/'.$month) }}')" class="btn btn-success">Cetak Barang</a>
                   </div>
                 </div>
             </div>

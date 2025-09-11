@@ -53,7 +53,9 @@
             <hr class="horizontal dark my-3">
         </div>
 
-        <div class="col-6">
+        @if($segment == 'telur')
+        <div class="col-12">
+            <h5>Telur</h5>
             <table class="table mb-0">
                 <thead>
                     <tr class="table-secondary">
@@ -77,8 +79,10 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="col-6">
+        @endif
+        @if($segment == 'barang')
+        <div class="col-12">
+            <h5>Barang</h5>
             <table class="table mb-0">
                 <thead>
                     <tr class="table-secondary">
@@ -102,6 +106,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
 
         <hr class="horizontal dark my-3">
 
@@ -109,7 +114,7 @@
             <br/><br/><br/>
             <h5 class="fw-bold">
                 TERIMA KASIH ATAS <br/>
-                PEMBELIAN ANDAxx
+                PEMBELIAN ANDA
             </h5>
         </div>
         <div class="col-6 mt-5 text-center">

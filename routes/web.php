@@ -61,6 +61,7 @@ Route::controller(HutangController::class)->group(function() {
     Route::get('upah/buruh', 'upahBuruh')->middleware('staff', 'auth')->name('upahBuruh');
     Route::get('/hutang/harga-telur', 'hargaTelur')->middleware('auth', 'staff')->name('hargaTelur');
     Route::get('/hutang/cetak/{id}/{month}', 'cetak')->middleware('auth', 'staff')->name('cetakHutang');
+    Route::get('/hutang/cetak-telur/{id}/{month}', 'cetakTelur')->middleware('auth', 'staff')->name('cetakHutangTelur');
 });
 
 Route::controller(TransaksiController::class)->group(function() {

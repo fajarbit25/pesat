@@ -49,6 +49,7 @@ class Transaksi extends Component
     {
         $this->items = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
                         ->where('status', 'active')
+                        ->where('cashier_id', Auth::user()->id)
                         ->select('egg_trans_temps.id', 'name', 'qty', 'egg_trans_temps.price', 'total', 'code')
                         ->get();
     }
@@ -84,6 +85,7 @@ class Transaksi extends Component
                 'price'         => $product->price,
                 'total'         => $product->price,
                 'status'        => 'active',
+                'cashier_id'    => Auth::user()->id,
             ]);
             $this->dispatch('closeModal');
         } catch (Exception $e) {

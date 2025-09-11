@@ -58,6 +58,7 @@ class Pos extends Component
                         ->where('cashier_id', Auth::user()->id)
                         ->where('tipe_trx_temp', 'product')
                         ->where('in_out', 'out')
+                        ->where('costumer_id', $this->idPelanggan)
                         ->select('egg_trans_temps.id', 'name', 'qty', 'egg_trans_temps.price', 'total', 'code')
                         ->get();
     }
@@ -121,6 +122,7 @@ class Pos extends Component
                 'cashier_id'    => Auth::user()->id,
                 'tipe_trx_temp' => 'product',
                 'in_out'        => 'out',
+                'costumer_id'   => $this->idPelanggan
             ]);
 
             $this->dispatch('closeModal');
@@ -154,13 +156,6 @@ class Pos extends Component
 
     public function getSumTx()
     {
-        // $data = EggTransTemp::join('medicines', 'medicines.id', '=', 'egg_trans_temps.egg_id')
-        // ->join('egg_trxes', 'egg_trxes.idtransaksi', '=', 'egg_trans_temps.trx_id')
-        // ->where('status', 'active')
-        // ->where('cashier_id', Auth::user()->id)
-        // ->where('egg_trxes.costumer_id', $this->idPelanggan)
-        // ->sum('total');
-        // $this->sumTx = $data ?? 0;
         $total = $this->items;
         $this->sumTx = $total->sum('total') ?? 0;
     }
@@ -204,6 +199,7 @@ class Pos extends Component
                     ->where('cashier_id', Auth::user()->id)
                     ->where('tipe_trx_temp', 'product')
                     ->where('in_out', 'out')
+                    ->where('costumer_id', $this->idPelanggan)
                     ->update([
                         'trx_id'        => $trx->idtransaksi,
                         'status'        => 'inactive',

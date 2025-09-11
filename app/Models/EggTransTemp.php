@@ -19,5 +19,6 @@ class EggTransTemp extends Model
         'cashier_id',
         'tipe_trx_temp',
         'in_out',
+        'costumer_id',
     ];
 }

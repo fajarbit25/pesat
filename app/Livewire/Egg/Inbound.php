@@ -81,6 +81,7 @@ class Inbound extends Component
                     ->where('tipe_trx_temp', 'egg')
                     ->where('in_out', 'in')
                     ->where('cashier_id', Auth::user()->id)
+                    ->where('costumer_id', $this->idPelanggan)
                     ->select('egg_trans_temps.id', 'name', 'qty', 'price', 'total', 'code')
                     ->get();
         $this->items = $data;
@@ -92,6 +93,7 @@ class Inbound extends Component
         ->where('tipe_trx_temp', 'egg')
         ->where('in_out', 'in')
         ->where('cashier_id', Auth::user()->id)
+        ->where('costumer_id', $this->idPelanggan)
         ->sum('total');
         $this->sumTx = $data ?? 0;
     }
@@ -206,6 +208,7 @@ class Inbound extends Component
                 'cashier_id'    => Auth::user()->id,
                 'tipe_trx_temp' => 'egg',
                 'in_out'        => 'in',
+                'costumer_id'   => $this->idPelanggan,
             ]);
             $this->dispatch('closeModal');
         } catch (Exception $e) {
@@ -261,7 +264,12 @@ class Inbound extends Component
                 EggTrx::create($data);
 
                 //update table transaksi sementara
-                EggTransTemp::where('status', 'active')->update([
+                EggTransTemp::where('status', 'active')
+                ->where('costumer_id', $this->idPelanggan)
+                ->where('tipe_trx_temp', 'egg')
+                ->where('in_out', 'in')
+                ->where('cashier_id', Auth::user()->id)
+                ->update([
                     'trx_id'    => $idtransaksi,
                     'status'    => 'inactive',
                     'created_at'        => $this->tanggal.' '.date('H:i:s'),

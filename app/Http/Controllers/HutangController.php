@@ -88,6 +88,7 @@ class HutangController extends Controller
     public function cetak($id, $month)
     {
         $bulan = substr($month, 5, 2);
+        $tahun = substr($month, 0, 4);
         $formattedDate = Carbon::createFromFormat('Y-m', $month);
 
         $telur = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
@@ -95,6 +96,7 @@ class HutangController extends Controller
                         ->where('egg_trxes.costumer_id', $id)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->whereYear('egg_trans_temps.created_at', $tahun)
                         ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
         $produks = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
@@ -104,6 +106,7 @@ class HutangController extends Controller
                         ->where('tipetrx', '!=', 'egg')
                         ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->whereYear('egg_trans_temps.created_at', $tahun)
                         ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
         $data = [
@@ -120,6 +123,7 @@ class HutangController extends Controller
     public function cetakTelur($id, $month)
     {
         $bulan = substr($month, 5, 2);
+        $tahun = substr($month, 0, 4);
         $formattedDate = Carbon::createFromFormat('Y-m', $month);
 
         $telur = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
@@ -127,6 +131,7 @@ class HutangController extends Controller
                         ->where('egg_trxes.costumer_id', $id)
                         ->where('trxtipe', 'pembelian')->where('tipetrx', 'egg')
                         ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->whereYear('egg_trans_temps.created_at', $tahun)
                         ->select('egg_trxes.*', 'eggs.id as idbarang', 'eggs.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
         $produks = EggTrx::leftJoin('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
@@ -136,6 +141,7 @@ class HutangController extends Controller
                         ->where('tipetrx', '!=', 'egg')
                         ->where('egg_trans_temps.egg_id', '!=', '120')
                         ->whereMonth('egg_trans_temps.created_at', $bulan)
+                        ->whereYear('egg_trans_temps.created_at', $tahun)
                         ->select('egg_trxes.*', 'medicines.id as idbarang', 'medicines.name', 'egg_trans_temps.created_at as tanggal', 'egg_trans_temps.qty',
                         'egg_trans_temps.price', 'egg_trans_temps.total', 'disc')->orderBy('egg_trans_temps.created_at', 'ASC')->get();
         $data = [

@@ -40,10 +40,12 @@ class BuyerDetail extends Component
     public function getItems()
     {
         $month = date('m', strtotime($this->month));
+        $year = date('Y', strtotime($this->month));
         $this->items = EggTrx::join('egg_trans_temps', 'egg_trans_temps.trx_id', '=', 'egg_trxes.idtransaksi')
                             ->join('eggs', 'eggs.id', '=', 'egg_trans_temps.egg_id')
                             ->where('costumer_id', $this->userid)->where('egg_trxes.tipetrx', 'egg')->where('egg_trxes.trxtipe', 'penjualan')
-                            ->whereMonth('egg_trxes.created_at', $month) // Filter berdasarkan bulan
+                            ->whereMonth('egg_trxes.created_at', $month)
+                            ->whereYear('egg_trxes.created_at', $year) // Filter berdasarkan bulan
                             ->select('egg_trxes.*', 'eggs.name', 'egg_trans_temps.qty', 'egg_trans_temps.price', 'egg_trans_temps.total',
                             'egg_trxes.created_at as tanggal', 'idtansaksi', 'payment_status', 'keterangan', 'totalprice')
                             ->get();
